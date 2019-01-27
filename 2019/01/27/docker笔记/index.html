@@ -5,14 +5,21 @@
   
   <title>docker笔记 | linhuanjie&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="菜鸟教程–Docker 安装 安装Docker步骤请点我Hello World Docker Hello World12runoob@runoob:~$ docker run ubuntu:15.10 /bin/echo &amp;quot;Hello world&amp;quot;Hello world    Docker 容器使用 可直接输入 docker 命令来查看到 Docker 客户端的所有命令选项。也">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
 <meta property="og:title" content="docker笔记">
 <meta property="og:url" content="https://1006400320.github.io/hexo/2019/01/27/docker笔记/index.html">
 <meta property="og:site_name" content="linhuanjie&#39;s blog">
+<meta property="og:description" content="菜鸟教程–Docker 安装 安装Docker步骤请点我Hello World Docker Hello World12runoob@runoob:~$ docker run ubuntu:15.10 /bin/echo &amp;quot;Hello world&amp;quot;Hello world    Docker 容器使用 可直接输入 docker 命令来查看到 Docker 客户端的所有命令选项。也">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-27T14:46:30.365Z">
+<meta property="og:image" content="https://1006400320.github.io/hexo/2019/01/27/docker笔记/docker_help.png">
+<meta property="og:image" content="https://1006400320.github.io/hexo/2019/01/27/docker笔记/docker_help_start.png">
+<meta property="og:updated_time" content="2019-01-27T15:47:10.894Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker笔记">
+<meta name="twitter:description" content="菜鸟教程–Docker 安装 安装Docker步骤请点我Hello World Docker Hello World12runoob@runoob:~$ docker run ubuntu:15.10 /bin/echo &amp;quot;Hello world&amp;quot;Hello world    Docker 容器使用 可直接输入 docker 命令来查看到 Docker 客户端的所有命令选项。也">
+<meta name="twitter:image" content="https://1006400320.github.io/hexo/2019/01/27/docker笔记/docker_help.png">
   
     <link rel="alternate" href="/atom.xml" title="linhuanjie&#39;s blog" type="application/atom+xml">
   
@@ -83,13 +90,91 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p><a href="http://www.runoob.com/docker/docker-tutorial.html" target="_blank" rel="noopener">菜鸟教程–Docker</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
+<li>安装Docker步骤请<a href="http://www.runoob.com/docker/ubuntu-docker-install.html" target="_blank" rel="noopener">点我</a><h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3></li>
+<li>Docker Hello World<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker run ubuntu:15.10 /bin/echo &quot;Hello world&quot;</span><br><span class="line">Hello world</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h3 id="Docker-容器使用"><a href="#Docker-容器使用" class="headerlink" title="Docker 容器使用"></a>Docker 容器使用</h3><ol>
+<li>可直接输入 docker 命令来查看到 Docker 客户端的所有命令选项。<br><img src="/hexo/2019/01/27/docker笔记/docker_help.png" alt="docker-help"><br>也可以用 <strong>docker xxx –help</strong><br>如：docker start –help<br><img src="/hexo/2019/01/27/docker笔记/docker_help_start.png" alt="docker-help"></li>
+</ol>
+<hr>
+<ol start="2">
+<li>查看 WEB 应用容器(<strong>docker ps</strong>)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~#  docker ps</span><br><span class="line">CONTAINER ID        IMAGE                             PORTS                     NAMES</span><br><span class="line">bf08b7f2cd89        training/webapp     ...        0.0.0.0:5000-&gt;5000/tcp    wizardly_chandrasekhar</span><br><span class="line">d3d5e39ed9d3        training/webapp     ...        0.0.0.0:32769-&gt;5000/tcp   xenodochial_hoov</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<ol start="3">
+<li>检查 WEB 应用程序(<strong>docker inspect </strong>)<br>使用 docker inspect 来查看 Docker 的底层信息。它会返回一个 JSON 文件记录着 Docker 容器的配置和状态信息。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker inspect wizardly_chandrasekhar</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;Id&quot;: &quot;bf08b7f2cd897b5964943134aa6d373e355c286db9b9885b1f60b6e8f82b2b85&quot;,</span><br><span class="line">        &quot;Created&quot;: &quot;2018-09-17T01:41:26.174228707Z&quot;,</span><br><span class="line">        &quot;Path&quot;: &quot;python&quot;,</span><br><span class="line">        &quot;Args&quot;: [</span><br><span class="line">            &quot;app.py&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;State&quot;: &#123;</span><br><span class="line">            &quot;Status&quot;: &quot;running&quot;,</span><br><span class="line">            &quot;Running&quot;: true,</span><br><span class="line">            &quot;Paused&quot;: false,</span><br><span class="line">            &quot;Restarting&quot;: false,</span><br><span class="line">            &quot;OOMKilled&quot;: false,</span><br><span class="line">            &quot;Dead&quot;: false,</span><br><span class="line">            &quot;Pid&quot;: 23245,</span><br><span class="line">            &quot;ExitCode&quot;: 0,</span><br><span class="line">            &quot;Error&quot;: &quot;&quot;,</span><br><span class="line">            &quot;StartedAt&quot;: &quot;2018-09-17T01:41:26.494185806Z&quot;,</span><br><span class="line">            &quot;FinishedAt&quot;: &quot;0001-01-01T00:00:00Z&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<ol start="4">
+<li>停止 WEB 应用容器(<strong>docker stop  container_id</strong>)</li>
+</ol>
+<hr>
+<ol start="5">
+<li>启动 WEB 应用容器(<strong>docker start  container_id</strong>)</li>
+</ol>
+<hr>
+<ol start="6">
+<li>移除 WEB 应用容器(<strong>docker rm  container_id</strong>)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker rm wizardly_chandrasekhar  </span><br><span class="line">wizardly_chandrasekhar</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>删除容器时，容器必须是停止状态，否则会报如下错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker rm wizardly_chandrasekhar</span><br><span class="line">Error response from daemon: You cannot remove a running container bf08b7f2cd897b5964943134aa6d373e355c286db9b9885b1f60b6e8f82b2b85. Stop the container before attempting removal or force remove</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="镜像使用"><a href="#镜像使用" class="headerlink" title="镜像使用"></a>镜像使用</h3><ol>
+<li>查找镜像（<strong>docker search xxx</strong>）</li>
+</ol>
+<hr>
+<ol start="2">
+<li>载入镜像 (<strong>docker pull xxx:tag</strong>)</li>
+</ol>
+<hr>
+<ol start="3">
+<li>列出镜像列表（<strong>docker images</strong>）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker images           </span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">ubuntu              14.04               90d5884b1ee0        5 days ago          188 MB</span><br><span class="line">php                 5.6                 f40e9e0f10c8        9 days ago          444.8 MB</span><br><span class="line">nginx               latest              6f8d099c3adc        12 days ago         182.7 MB</span><br><span class="line">mysql               5.6                 f2e8d6c772c0        3 weeks ago         324.6 MB</span><br><span class="line">httpd               latest              02ef73cf1bc0        3 weeks ago         194.4 MB</span><br><span class="line">ubuntu              15.10               4e3b13c8a266        4 weeks ago         136.3 MB</span><br><span class="line">hello-world         latest              690ed74de00f        6 months ago        960 B</span><br><span class="line">training/webapp     latest              6fae60ef3446        11 months ago       348.8 MB</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>各个选项说明:</p>
+<ul>
+<li>REPOSITORY：表示镜像的仓库源</li>
+<li>TAG：镜像的标签</li>
+<li>IMAGE ID：镜像ID</li>
+<li>CREATED：镜像创建时间</li>
+<li>SIZE：镜像大小</li>
+</ul>
+<hr>
+<p>4.创建镜像<br>当我们从docker镜像仓库中下载的镜像不能满足我们的需求时，我们可以通过以下两种方式对镜像进行更改。</p>
+<ul>
+<li>从已经创建的容器中更新镜像，并且提交这个镜像</li>
+<li>使用 Dockerfile 指令来创建一个新的镜像</li>
+</ul>
+<hr>
+<ol start="5">
+<li>更新镜像<br>更新镜像之前，我们需要使用镜像来创建一个容器。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker commit -m=&quot;has update&quot; -a=&quot;runoob&quot; e218edb10161 runoob/ubuntu:v2</span><br><span class="line">sha256:70bf1840fd7c0d2d8ef0a42a817eb29f854c1af8f7c59fc03ac7bdee9545aff8</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>各个参数说明：</p>
+<ul>
+<li>-m:提交的描述信息</li>
+<li>-a:指定镜像作者</li>
+<li>e218edb10161：容器ID</li>
+<li>runoob/ubuntu:v2:指定要创建的目标镜像名</li>
+</ul>
+<p>6.构建镜像（<strong>docker build</strong>）</p>
+<p>7.设置镜像标签（<strong>docker tag</strong>）<br>我们可以使用 docker tag 命令，为镜像添加一个新的标签。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker tag 860c279d2fec runoob/centos:dev</span><br></pre></td></tr></table></figure></p>
+<p>docker tag 镜像ID，这里是 860c279d2fec ,用户名称、镜像源名(repository name)和新的标签名(tag)。<br>使用 docker images 命令可以看到，ID为860c279d2fec的镜像多一个标签。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">runoob/centos       6.7                 860c279d2fec        5 hours ago         190.6 MB</span><br><span class="line">runoob/centos       dev                 860c279d2fec        5 hours ago         190.6 MB</span><br><span class="line">runoob/ubuntu       v2                  70bf1840fd7c        22 hours ago        158.5 MB</span><br><span class="line">ubuntu              14.04               90d5884b1ee0        6 days ago          188 MB</span><br><span class="line">php                 5.6                 f40e9e0f10c8        10 days ago         444.8 MB</span><br><span class="line">nginx               latest              6f8d099c3adc        13 days ago         182.7 MB</span><br><span class="line">mysql               5.6                 f2e8d6c772c0        3 weeks ago         324.6 MB</span><br><span class="line">httpd               latest              02ef73cf1bc0        3 weeks ago         194.4 MB</span><br><span class="line">ubuntu              15.10               4e3b13c8a266        5 weeks ago         136.3 MB</span><br><span class="line">hello-world         latest              690ed74de00f        6 months ago        960 B</span><br><span class="line">centos              6.7                 d95b5ca17cc3        6 months ago        190.6 MB</span><br><span class="line">training/webapp     latest              6fae60ef3446        12 months ago       348.8 MB</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://1006400320.github.io/hexo/2019/01/27/docker笔记/" data-id="cjrf1fdmz0000qguti69113mc" class="article-share-link">Share</a>
+      <a data-url="https://1006400320.github.io/hexo/2019/01/27/docker笔记/" data-id="cjrf331br0000fwutbxhpufwr" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo/tags/docker/">docker</a></li></ul>
+
     </footer>
   </div>
   
@@ -124,9 +209,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/hexo/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/hexo/tags/hexo/">hexo</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/hexo/tags/docker/" style="font-size: 10px;">docker</a> <a href="/hexo/tags/hexo/" style="font-size: 10px;">hexo</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -143,6 +242,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/hexo/2019/01/27/使用hexo博客遇到的问题/">使用hexo博客遇到的问题</a>
+          </li>
         
           <li>
             <a href="/hexo/2019/01/27/test-img/">test_img</a>
