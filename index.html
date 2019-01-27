@@ -84,59 +84,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>测试两种在博客中使用图片的方法：</p>
-<ol>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1 把主页配置文件_config.yml 里的post_asset_folder:这个选项设置为true</span><br><span class="line"></span><br><span class="line">2 在你的hexo目录下执行这样一句话npm install hexo-asset-image --save，这是下载安装一个可以上传本地图片的插件，来自dalao：dalao的git</span><br><span class="line"></span><br><span class="line">3 等待一小段时间后，再运行hexo n &quot;xxxx&quot;来生成md博文时，/source/_posts文件夹内除了xxxx.md文件还有一个同名的文件夹</span><br><span class="line"></span><br><span class="line">4 最后在xxxx.md中想引入图片时，先把图片复制到xxxx这个文件夹中，然后只需要在xxxx.md中按照markdown的格式引入图片：</span><br><span class="line"></span><br><span class="line">![你想输入的替代文字](xxxx/图片名.jpg)</span><br><span class="line"></span><br><span class="line">注意： xxxx是这个md文件的名字，也是同名文件夹的名字。只需要有文件夹名字即可，不需要有什么绝对路径。你想引入的图片就只需要放入xxxx这个文件夹内就好了，很像引用相对路径。</span><br><span class="line"></span><br><span class="line">5 最后检查一下，hexo g生成页面后，进入public\2017\02\26\index.html文件中查看相关字段，可以发现，html标签内的语句是&lt;img src=&quot;2017/02/26/xxxx/图片名.jpg&quot;&gt;，而不是&lt;img src=&quot;xxxx/图片名.jpg&gt;。这很重要，关乎你的网页是否可以真正加载你想插入的图片。</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+        <h3 id="在Hexo博客中添加图片的方法："><a href="#在Hexo博客中添加图片的方法：" class="headerlink" title="在Hexo博客中添加图片的方法："></a>在Hexo博客中添加图片的方法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1 把主页配置文件_config.yml 里的post_asset_folder:这个选项设置为true</span><br><span class="line"></span><br><span class="line">2 在你的hexo目录下执行这样一句话npm install hexo-asset-image --save，这是下载安装一个可以上传本地图片的插件，来自dalao：dalao的git</span><br><span class="line"></span><br><span class="line">3 等待一小段时间后，再运行hexo n &quot;xxxx&quot;来生成md博文时，/source/_posts文件夹内除了xxxx.md文件还有一个同名的文件夹</span><br><span class="line"></span><br><span class="line">4 最后在xxxx.md中想引入图片时，先把图片复制到xxxx这个文件夹中，然后只需要在xxxx.md中按照markdown的格式引入图片：</span><br><span class="line"></span><br><span class="line">![你想输入的替代文字](xxxx/图片名.jpg)</span><br><span class="line"></span><br><span class="line">注意： xxxx是这个md文件的名字，也是同名文件夹的名字。只需要有文件夹名字即可，不需要有什么绝对路径。你想引入的图片就只需要放入xxxx这个文件夹内就好了，很像引用相对路径。</span><br><span class="line"></span><br><span class="line">5 最后检查一下，hexo g生成页面后，进入public\2017\02\26\index.html文件中查看相关字段，可以发现，html标签内的语句是&lt;img src=&quot;2017/02/26/xxxx/图片名.jpg&quot;&gt;，而不是&lt;img src=&quot;xxxx/图片名.jpg&gt;。这很重要，关乎你的网页是否可以真正加载你想插入的图片。</span><br></pre></td></tr></table></figure>
 <p>下面这个图片就是方法1添加的：<br><img src="/hexo/2019/01/27/test-img/微信图片_20190127225942.jpg" alt="啪"></p>
 <hr>
-<ol start="2">
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">本地source中建立img文件夹</span><br><span class="line"></span><br><span class="line">&lt;img src=&quot;img/图片名.jpg&gt;</span><br><span class="line"></span><br><span class="line">这个比较方便</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>下面这个图片是方法2添加的：<br><img src="/hexo/2019/01/27/test-img/img/微信图片_20190127225849.jpg"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://1006400320.github.io/hexo/2019/01/27/test-img/" data-id="cjrf1fdn70002qgut2o48qusn" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-docker笔记" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/hexo/2019/01/27/docker笔记/" class="article-date">
-  <time datetime="2019-01-27T14:46:30.000Z" itemprop="datePublished">2019-01-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/hexo/2019/01/27/docker笔记/">docker笔记</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://1006400320.github.io/hexo/2019/01/27/docker笔记/" data-id="cjrf1fdmz0000qguti69113mc" class="article-share-link">Share</a>
+      <a data-url="https://1006400320.github.io/hexo/2019/01/27/test-img/" data-id="cjrf2odsf00026cutv6fw5wiv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -170,7 +125,7 @@
       
         <p><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官方文档</a></p>
 <ul>
-<li><p>创建新文章：hexo new [layout] <title></title></p>
+<li><p>创建新文章：hexo n(new) [layout] <title></title></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">您可以在命令中指定文章的布局（layout），默认为 post，可以通过修改 _config.yml 中的 default_layout 参数来指定默认布局。</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动本地服务：hexo s(server)</p>
@@ -186,7 +141,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://1006400320.github.io/hexo/2019/01/27/hexo-commands/" data-id="cjrf1fdn50001qgut4wzgbw0x" class="article-share-link">Share</a>
+      <a data-url="https://1006400320.github.io/hexo/2019/01/27/hexo-commands/" data-id="cjrf2odsc00016cutblb1r1pg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -231,7 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://1006400320.github.io/hexo/2019/01/27/hello-world/" data-id="cjrf1fdn80003qgutwgajp1qu" class="article-share-link">Share</a>
+      <a data-url="https://1006400320.github.io/hexo/2019/01/27/hello-world/" data-id="cjrf2ods200006cutwabsflyc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -272,10 +227,6 @@
         
           <li>
             <a href="/hexo/2019/01/27/test-img/">test_img</a>
-          </li>
-        
-          <li>
-            <a href="/hexo/2019/01/27/docker笔记/">docker笔记</a>
           </li>
         
           <li>
