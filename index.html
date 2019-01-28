@@ -62,6 +62,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Docker安装mysql" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/hexo/2019/01/28/Docker安装mysql/" class="article-date">
+  <time datetime="2019-01-28T12:04:46.000Z" itemprop="datePublished">2019-01-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/hexo/2019/01/28/Docker安装mysql/">Docker安装mysql</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><p>时间： 2019-01-28 20:04:46<br>系统： Ubuntu 18.04 LTS<br>docker 18</p>
+<h3 id="获取镜像（’-8-0-’可有可无，默认会pull最新版本）"><a href="#获取镜像（’-8-0-’可有可无，默认会pull最新版本）" class="headerlink" title="获取镜像（’[:8.0]’可有可无，默认会pull最新版本）"></a>获取镜像（’[:8.0]’可有可无，默认会pull最新版本）</h3><p>docker pull mysql[:8.0]</p>
+<h3 id="新建容器"><a href="#新建容器" class="headerlink" title="新建容器"></a>新建容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~/mysql$ docker run -p 3306:3306 --name mymysql -v $PWD/conf:/etc/mysql/conf.d -v $PWD/logs:/logs -v $PWD/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6</span><br><span class="line">21cb89213c93d805c5bacf1028a0da7b5c5852761ba81327e6b99bb3ea89930e</span><br><span class="line">runoob@runoob:~/mysql$</span><br></pre></td></tr></table></figure>
+<p>命令说明：</p>
+<ul>
+<li>-p 3306:3306：将容器的 3306 端口映射到主机的 3306 端口。</li>
+<li>-v -v $PWD/conf:/etc/mysql/conf.d：将主机当前目录下的 conf/my.cnf 挂载到容器的 /etc/mysql/my.cnf。</li>
+<li>-v $PWD/logs:/logs：将主机当前目录下的 logs 目录挂载到容器的 /logs。</li>
+<li>-v $PWD/data:/var/lib/mysql ：将主机当前目录下的data目录挂载到容器的 /var/lib/mysql 。</li>
+<li>-e MYSQL_ROOT_PASSWORD=123456：初始化 root 用户的密码。</li>
+</ul>
+<h3 id="查看容器启动情况"><a href="#查看容器启动情况" class="headerlink" title="查看容器启动情况"></a>查看容器启动情况</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~/mysql$ docker ps </span><br><span class="line">CONTAINER ID    IMAGE         COMMAND                  ...  PORTS                    NAMES</span><br><span class="line">21cb89213c93    mysql:5.6    &quot;docker-entrypoint.sh&quot;    ...  0.0.0.0:3306-&gt;3306/tcp   mymysql</span><br></pre></td></tr></table></figure>
+<h3 id="启动后使用远程工具连接会报错"><a href="#启动后使用远程工具连接会报错" class="headerlink" title="启动后使用远程工具连接会报错"></a>启动后使用远程工具连接会报错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugin caching_sha2_password could not be loaded</span><br></pre></td></tr></table></figure>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ol>
+<li><p>进入mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql /bin/bash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行以下mysql命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//登录数据库</span><br><span class="line"></span><br><span class="line">mysql -uroot -p&#123;your password&#125;</span><br><span class="line">//使用mysql数据库</span><br><span class="line">mysql&gt;use mysql</span><br><span class="line"></span><br><span class="line">//修改数据库</span><br><span class="line">mysql&gt; ALTER USER &apos;root&apos;@&apos;%&apos; IDENTIFIED WITH mysql_native_password BY &apos;root&apos;;</span><br><span class="line"></span><br><span class="line">//重新修改密码后可连接成功</span><br><span class="line">mysql&gt; alter  user &apos;root&apos;@&apos;%&apos; identified by &apos;123456&apos;;</span><br><span class="line"></span><br><span class="line">//刷新数据库</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://1006400320.github.io/hexo/2019/01/28/Docker安装mysql/" data-id="cjrgawks400009gutv4e4lmz5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo/tags/docker/">docker</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-使用hexo博客遇到的问题" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/hexo/2019/01/27/使用hexo博客遇到的问题/" class="article-date">
@@ -91,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://1006400320.github.io/hexo/2019/01/27/使用hexo博客遇到的问题/" data-id="cjrf3a06j0006z8ut2aqgqg29" class="article-share-link">Share</a>
+      <a data-url="https://1006400320.github.io/hexo/2019/01/27/使用hexo博客遇到的问题/" data-id="cjrgawksw00079gut3p561nyl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo/tags/hexo/">hexo</a></li></ul>
@@ -131,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://1006400320.github.io/hexo/2019/01/27/test-img/" data-id="cjrf3a06i0005z8utzct8oqiy" class="article-share-link">Share</a>
+      <a data-url="https://1006400320.github.io/hexo/2019/01/27/test-img/" data-id="cjrgawksz00089gut8lxr0mjw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -245,7 +304,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://1006400320.github.io/hexo/2019/01/27/docker笔记/" data-id="cjrf3a0610000z8ut236vvugs" class="article-share-link">Share</a>
+      <a data-url="https://1006400320.github.io/hexo/2019/01/27/docker笔记/" data-id="cjrgawksq00039gut016eksvx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo/tags/docker/">docker</a></li></ul>
@@ -297,7 +356,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://1006400320.github.io/hexo/2019/01/27/hexo-commands/" data-id="cjrf3a0690003z8utvfyvd10t" class="article-share-link">Share</a>
+      <a data-url="https://1006400320.github.io/hexo/2019/01/27/hexo-commands/" data-id="cjrgawksr00049gutj3sxm832" class="article-share-link">Share</a>
       
       
     </footer>
@@ -342,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://1006400320.github.io/hexo/2019/01/27/hello-world/" data-id="cjrf3a0660001z8utks8kpe5j" class="article-share-link">Share</a>
+      <a data-url="https://1006400320.github.io/hexo/2019/01/27/hello-world/" data-id="cjrgawksu00069gutmclx4nv0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -374,7 +433,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/hexo/tags/docker/" style="font-size: 10px;">docker</a> <a href="/hexo/tags/hexo/" style="font-size: 10px;">hexo</a>
+      <a href="/hexo/tags/docker/" style="font-size: 20px;">docker</a> <a href="/hexo/tags/hexo/" style="font-size: 10px;">hexo</a>
     </div>
   </div>
 
@@ -396,6 +455,10 @@
       <ul>
         
           <li>
+            <a href="/hexo/2019/01/28/Docker安装mysql/">Docker安装mysql</a>
+          </li>
+        
+          <li>
             <a href="/hexo/2019/01/27/使用hexo博客遇到的问题/">使用hexo博客遇到的问题</a>
           </li>
         
@@ -409,10 +472,6 @@
         
           <li>
             <a href="/hexo/2019/01/27/hexo-commands/">hexo_commands</a>
-          </li>
-        
-          <li>
-            <a href="/hexo/2019/01/27/hello-world/">Hello World</a>
           </li>
         
       </ul>
