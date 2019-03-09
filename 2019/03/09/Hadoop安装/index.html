@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/image/favicon.jpg">
+    
+
+    <title>
+        
+        Hadoop安装 |
+        
+        linhuanjie&#39;s blog
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/lhj/css/style.css">
+    <link rel="stylesheet" href="/lhj/css/home.css">
+    <link rel="stylesheet" href="/lhj/css/highlight.css">
+    <link rel="stylesheet" href="/lhj/css/toc.css">
+
+
+</head>
+<body></body>
+</html>
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+     background-image: url('');
+        /*post*/
+    
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/lhj/tags/#hadoop" title="hadoop">hadoop</a>
+                        
+                    </div>
+                    <h1>Hadoop安装</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                            Posted by linhuanjie on
+                        2019-03-09
+                        </span>
+                </div>
+                <!-- 非文章 -->
+                
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/lhj/">linhuanjie&#39;s blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li><a href="/">Home</a></li>
+                    
+                    <li><a href="/portfolio">Portfolio</a></li>
+                    
+                    <li><a href="/about">About</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <!-- Post container -->
+
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+
+            <h1 id="Hadoop运行环境搭建"><a href="#Hadoop运行环境搭建" class="headerlink" title="Hadoop运行环境搭建"></a>Hadoop运行环境搭建</h1><p><a href="https://blog.csdn.net/qq_31807385/article/details/84141835" target="_blank" rel="noopener">也可使用这篇手册</a></p>
+<h2 id="1-虚拟机环境准备"><a href="#1-虚拟机环境准备" class="headerlink" title="1. 虚拟机环境准备"></a>1. 虚拟机环境准备</h2><h3 id="1-克隆虚拟机"><a href="#1-克隆虚拟机" class="headerlink" title="1.克隆虚拟机"></a>1.克隆虚拟机</h3><p> 右键虚拟机名称 –&gt; 管理 –&gt; 克隆</p>
+<p><img src="/lhj/2019/03/09/Hadoop安装/1552109643291.png" alt="1552109643291"></p>
+<p><img src="/lhj/2019/03/09/Hadoop安装/微信截图_20190309133522.png" alt=""></p>
+<p><img src="/lhj/2019/03/09/Hadoop安装/微信截图_20190309133556.png" alt=""></p>
+<h3 id="2-修改克隆虚拟机的静态IP"><a href="#2-修改克隆虚拟机的静态IP" class="headerlink" title="2.修改克隆虚拟机的静态IP"></a>2.修改克隆虚拟机的静态IP</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">步骤一：vim /etc/udev/rules.d/70-persistent-net.rules</span><br></pre></td></tr></table></figure>
+<p><img src="/lhj/2019/03/09/Hadoop安装/1552110179714.png" alt="1552110179714"></p>
+<p>​    1）删除上图中红色圈中的文字；</p>
+<p>​    2）记录下蓝色圈中的网卡号（网卡的物理地址）；</p>
+<p>​    3）将 <code>eth2</code> 改为 <code>eth0</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">步骤二：vim /etc/sysconfig/network-scripts/ifcfg-eth0</span><br></pre></td></tr></table></figure>
+<p><img src="/lhj/2019/03/09/Hadoop安装/微信截图_20190309135252.png" alt=""></p>
+<p>​    1）将图中蓝色圈中位置，修改为步骤一记录下的网卡号；</p>
+<p>​    2）修改红色圈中的信息</p>
+<h3 id="3-修改主机名"><a href="#3-修改主机名" class="headerlink" title="3.修改主机名"></a>3.修改主机名</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/network</span><br><span class="line">vim /etc/hosts</span><br></pre></td></tr></table></figure>
+<p><img src="/lhj/2019/03/09/Hadoop安装/微信截图_20190309143628.png" alt=""></p>
+<h3 id="4-关闭防火墙"><a href="#4-关闭防火墙" class="headerlink" title="4.关闭防火墙"></a>4.关闭防火墙</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig iptables off      #centos6永久关闭防火墙</span><br></pre></td></tr></table></figure>
+<h3 id="5-创建用户"><a href="#5-创建用户" class="headerlink" title="5.创建用户"></a>5.创建用户</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd lhj   #增加用户名为'lhj'的用户</span><br><span class="line">passwd lhj</span><br></pre></td></tr></table></figure>
+<h3 id="6-配置用户具有root权限"><a href="#6-配置用户具有root权限" class="headerlink" title="6.配置用户具有root权限"></a>6.配置用户具有root权限</h3><p>修改 /etc/sudoers 文件，找到root一行，在root下面添加一行，如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span># Allow root to run any commands anywhere</span><br><span class="line">root ALL=(ALL) ALL</span><br><span class="line">lhj ALL=(ALL) ALL</span><br><span class="line"></span><br><span class="line">如果Linux保存文件提示：readonly option is set （add！to override）</span><br><span class="line">使用 :wq!</span><br><span class="line">进行保存</span><br></pre></td></tr></table></figure>
+<h3 id="7．在-opt目录下创建文件夹"><a href="#7．在-opt目录下创建文件夹" class="headerlink" title="7．在/opt目录下创建文件夹"></a>7．在/opt目录下创建文件夹</h3><p>（1）在/opt目录下创建module、software文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 opt]$ sudo mkdir module</span><br><span class="line">[lhj@hadoop1 opt]$ sudo mkdir software</span><br></pre></td></tr></table></figure>
+<p>（2）修改module、software文件夹的所有者cd </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 opt]$ sudo chown lhj:lhj module/ software/</span><br><span class="line">[lhj@hadoop1 opt]$ ll</span><br><span class="line">总用量 8</span><br><span class="line">drwxr-xr-x. 2 atguigu atguigu 4096 1月  17 14:37 module</span><br><span class="line">drwxr-xr-x. 2 atguigu atguigu 4096 1月  17 14:38 software</span><br></pre></td></tr></table></figure>
+<h2 id="2-安装JDK"><a href="#2-安装JDK" class="headerlink" title="2.安装JDK"></a>2.安装JDK</h2><h3 id="1-卸载现有JDK"><a href="#1-卸载现有JDK" class="headerlink" title="1.卸载现有JDK"></a>1.卸载现有JDK</h3><p>（1）查询是否安装Java软件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 opt]$ rpm -qa | grep java</span><br></pre></td></tr></table></figure>
+<p>（2）如果安装的版本低于1.7，卸载该JDK：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 opt]$ sudo rpm -e 软件包</span><br></pre></td></tr></table></figure>
+<p>（3）查看JDK安装路径：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 ~]$ which java</span><br></pre></td></tr></table></figure>
+<h3 id="2-使用工具将JDK上传到-opt-software"><a href="#2-使用工具将JDK上传到-opt-software" class="headerlink" title="2.使用工具将JDK上传到 /opt/software"></a>2.使用工具将JDK上传到 /opt/software</h3><h3 id="3-在Linux系统下的opt目录中查看软件包是否导入成功"><a href="#3-在Linux系统下的opt目录中查看软件包是否导入成功" class="headerlink" title="3.在Linux系统下的opt目录中查看软件包是否导入成功"></a>3.在Linux系统下的opt目录中查看软件包是否导入成功</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 opt]$ cd software/</span><br><span class="line">[lhj@hadoop1 software]$ ls</span><br><span class="line">hadoop-2.7.2.tar.gz  jdk-8u144-linux-x64.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="4-解压JDK到-opt-module目录下"><a href="#4-解压JDK到-opt-module目录下" class="headerlink" title="4.解压JDK到/opt/module目录下"></a>4.解压JDK到/opt/module目录下</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 software]$ tar -zxvf jdk-8u144-linux-x64.tar.gz -C /opt/module/</span><br></pre></td></tr></table></figure>
+<h3 id="5-配置JDK环境变量"><a href="#5-配置JDK环境变量" class="headerlink" title="5.配置JDK环境变量"></a>5.配置JDK环境变量</h3><p>​       （1）先获取JDK路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 jdk1.8.0_144]$ pwd</span><br><span class="line">/opt/module/jdk1.8.0_144</span><br></pre></td></tr></table></figure>
+<p>​       （2）打开/etc/profile文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 software]$ sudo vi /etc/profile</span><br></pre></td></tr></table></figure>
+<p>在profile文件末尾添加JDK路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>JAVA_HOME</span><br><span class="line">export JAVA_HOME=/opt/module/jdk1.8.0_144</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+<p>​    （3）保存后退出    :wq</p>
+<p>​       （4）让修改后的文件生效</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 jdk1.8.0_144]$ source /etc/profile</span><br></pre></td></tr></table></figure>
+<h3 id="6-测试JDK是否安装成功"><a href="#6-测试JDK是否安装成功" class="headerlink" title="6.测试JDK是否安装成功"></a>6.测试JDK是否安装成功</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 jdk1.8.0_144]# java -version</span><br><span class="line">java version "1.8.0_144"</span><br><span class="line"><span class="meta">#</span> 注意：重启（如果java -version可以用就不用重启）</span><br><span class="line">[lhj@hadoop1 jdk1.8.0_144]$ sync</span><br><span class="line">[lhj@hadoop1 jdk1.8.0_144]$ sudo reboot</span><br></pre></td></tr></table></figure>
+<h2 id="3-安装Hadoop"><a href="#3-安装Hadoop" class="headerlink" title="3.安装Hadoop"></a>3.安装Hadoop</h2><h3 id="0-Hadoop下载地址："><a href="#0-Hadoop下载地址：" class="headerlink" title="0.Hadoop下载地址："></a>0.Hadoop下载地址：</h3><p><a href="https://archive.apache.org/dist/hadoop/common/hadoop-2.7.2/" target="_blank" rel="noopener">https://archive.apache.org/dist/hadoop/common/hadoop-2.7.2/</a></p>
+<h3 id="1-使用工具将hadoop-2-7-2-tar-gz-上传到-opt-software"><a href="#1-使用工具将hadoop-2-7-2-tar-gz-上传到-opt-software" class="headerlink" title="1.使用工具将hadoop-2.7.2.tar.gz 上传到 /opt/software"></a>1.使用工具将hadoop-2.7.2.tar.gz 上传到 /opt/software</h3><h3 id="2-进入到Hadoop安装包路径下"><a href="#2-进入到Hadoop安装包路径下" class="headerlink" title="2.进入到Hadoop安装包路径下"></a>2.进入到Hadoop安装包路径下</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 ~]$ cd /opt/software/</span><br></pre></td></tr></table></figure>
+<h3 id="3-解压安装文件到-opt-module下面"><a href="#3-解压安装文件到-opt-module下面" class="headerlink" title="3.解压安装文件到/opt/module下面"></a>3.解压安装文件到/opt/module下面</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 software]$ tar -zxvf hadoop-2.7.2.tar.gz -C /opt/module/</span><br></pre></td></tr></table></figure>
+<h3 id="4-查看是否解压成功"><a href="#4-查看是否解压成功" class="headerlink" title="4.查看是否解压成功"></a>4.查看是否解压成功</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 software]$ ls /opt/module/</span><br><span class="line">hadoop-2.7.2</span><br></pre></td></tr></table></figure>
+<h3 id="5-将Hadoop添加到环境变量"><a href="#5-将Hadoop添加到环境变量" class="headerlink" title="5.将Hadoop添加到环境变量"></a>5.将Hadoop添加到环境变量</h3><p>（1）获取Hadoop安装路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 hadoop-2.7.2]$ pwd</span><br><span class="line">/opt/module/hadoop-2.7.2</span><br></pre></td></tr></table></figure>
+<p>（2）打开/etc/profile文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 hadoop-2.7.2]$ sudo vi /etc/profile</span><br></pre></td></tr></table></figure>
+<p>在profile文件末尾添加JDK路径：（shitf+g）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>#HADOOP_HOME</span><br><span class="line">export HADOOP_HOME=/opt/module/hadoop-2.7.2</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/sbin</span><br></pre></td></tr></table></figure>
+<p>（3）保存后退出    :wq</p>
+<p>（4）让修改后的文件生效</p>
+<pre><code>[lhj@ hadoop1 hadoop-2.7.2]$ source /etc/profile
+</code></pre><h3 id="6-测试是否安装成功"><a href="#6-测试是否安装成功" class="headerlink" title="6.测试是否安装成功"></a>6.测试是否安装成功</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lhj@hadoop1 hadoop-2.7.2]$ hadoop version</span><br><span class="line">Hadoop 2.7.2</span><br></pre></td></tr></table></figure>
+<h3 id="7-重启-如果Hadoop命令不能用再重启"><a href="#7-重启-如果Hadoop命令不能用再重启" class="headerlink" title="7.重启(如果Hadoop命令不能用再重启)"></a>7.重启(如果Hadoop命令不能用再重启)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[lhj@ hadoop1 hadoop-2.7.2]$ sync</span><br><span class="line">[lhj@ hadoop1 hadoop-2.7.2]$ sudo reboot</span><br></pre></td></tr></table></figure>
+
+
+
+            <!-- Pager -->
+            <ul class="pager">
+                
+                <li class="previous">
+                    <a href="/lhj/2019/03/09/正则表达式语法/">&larr; Previous Post</a>
+                </li>
+                
+                
+                <li class="next">
+                    <a href="/lhj/2019/02/16/JSR-303/">Next Post &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4><i class="fa fa-bookmark"></i> Catalog</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; linhuanjie&#39;s blog 2019
+                    <br>
+                    Theme by <a href="http://beantech.org/">Bean Tech</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://1006400320.github.io/lhj">linhuanjie&#39;s blog</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/lhj/js/script.js"></script>
+
+
+
+
+</body>
+</html>
