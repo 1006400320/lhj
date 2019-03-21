@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/image/favicon.jpg">
+    
+
+    <title>
+        
+        JDK1.8_JVM内存模型 |
+        
+        keep moving on
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/lhj/css/style.css">
+    <link rel="stylesheet" href="/lhj/css/home.css">
+    <link rel="stylesheet" href="/lhj/css/highlight.css">
+    <link rel="stylesheet" href="/lhj/css/toc.css">
+
+
+</head>
+<body></body>
+</html>
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+     background-image: url('/lhj/image/header.jpg'); 
+	/*
+	 background-image: url('');
+        /*post*/
+    
+	*/
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/lhj/tags/#jvm、Java" title="jvm、Java">jvm、Java</a>
+                        
+                    </div>
+                    <h1>JDK1.8_JVM内存模型</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                            Posted by linhuanjie on
+                        2019-03-21
+                        </span>
+                </div>
+                <!-- 非文章 -->
+                
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/lhj/">keep moving on</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <!-- Post container -->
+
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+
+            <p>原文：<a href="https://blog.csdn.net/ztx114/article/details/79400789" target="_blank" rel="noopener">https://blog.csdn.net/ztx114/article/details/79400789</a></p>
+<h2 id="一、JDK1-8-JVM内存模型概览"><a href="#一、JDK1-8-JVM内存模型概览" class="headerlink" title="一、JDK1.8 JVM内存模型概览"></a>一、<a href="https://www.baidu.com/s?wd=JDK&amp;tn=24004469_oem_dg&amp;rsv_dl=gh_pl_sl_csd" target="_blank" rel="noopener">JDK</a>1.8 JVM内存模型概览</h2><p><img src="/lhj/2019/03/21/JDK1-8-JVM内存模型/20180225003503739.jpg" alt="JVM内存模型"></p>
+<p>这里介绍的是JDK1.8 JVM内存模型。1.8同1.7比，最大的差别就是：<strong>元数据区取代了永久代</strong>。元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：<strong>元数据空间并不在虚拟机中，而是使用本地内存</strong>。</p>
+<h2 id="二、各区域介绍"><a href="#二、各区域介绍" class="headerlink" title="二、各区域介绍"></a>二、各区域介绍</h2><h3 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1. 程序计数器"></a>1. 程序计数器</h3><p>每个线程一块，指向当前线程正在执行的字节码代码的行号。如果当前线程执行的是native方法，则其值为null。</p>
+<h3 id="2-Java虚拟机栈"><a href="#2-Java虚拟机栈" class="headerlink" title="2. Java虚拟机栈"></a>2. Java虚拟机栈</h3><p><img src="/lhj/2019/03/21/JDK1-8-JVM内存模型/20180226235717764.jpg" alt="stack"><br>线程私有，生命周期与线程同进同退。每个Java方法在被调用的时候都会创建一个栈帧，并入栈。一旦完成调用，则出栈。所有的的栈帧都出栈后，线程也就完成了使命。</p>
+<h3 id="3-本地方法栈"><a href="#3-本地方法栈" class="headerlink" title="3. 本地方法栈"></a>3. 本地方法栈</h3><p>功能与Java虚拟机栈十分相同。区别在于，本地方法栈为虚拟机使用到的native方法服务。不多说。</p>
+<h3 id="4-堆"><a href="#4-堆" class="headerlink" title="4. 堆"></a>4. 堆</h3><p><img src="/lhj/2019/03/21/JDK1-8-JVM内存模型/20180224000420159.jpg" alt="heap"><br>堆是JVM内存占用最大，管理最复杂的一个区域。其唯一的用途就是存放对象实例：所有的对象实例及数组都在对上进行分配。1.8后，字符串常量池从永久代中剥离出来，存放在队中。堆有自己进一步的内存分块划分，具体划分请参见上图。</p>
+<h3 id="5-元数据区"><a href="#5-元数据区" class="headerlink" title="5. 元数据区"></a>5. 元数据区</h3><p>元数据区取代了1.7版本及以前的永久代。元数据区和永久代本质上都是方法区的实现。方法区存放虚拟机加载的类信息，静态变量，常量等数据。<br>元数据区OOM测试：</p>
+<ol>
+<li>jvm参数配置</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:MetaspaceSize=<span class="number">8</span>m -XX:MaxMetaspaceSize=<span class="number">50</span>m</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>测试代码</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MetaSpaceOomMock</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ClassLoadingMXBean loadingBean = ManagementFactory.getClassLoadingMXBean();</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">            enhancer.setSuperclass(MetaSpaceOomMock.class);</span><br><span class="line">            enhancer.setCallbackTypes(<span class="keyword">new</span> Class[]&#123;Dispatcher.class, MethodInterceptor.class&#125;);</span><br><span class="line">            enhancer.setCallbackFilter(<span class="keyword">new</span> CallbackFilter() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">accept</span><span class="params">(Method method)</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line"> </span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">super</span>.equals(obj);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"> </span><br><span class="line">            Class clazz = enhancer.createClass();</span><br><span class="line">            System.out.println(clazz.getName());</span><br><span class="line">            <span class="comment">//显示数量信息（共加载过的类型数目，当前还有效的类型数目，已经被卸载的类型数目）</span></span><br><span class="line">            System.out.println(<span class="string">"total: "</span> + loadingBean.getTotalLoadedClassCount());</span><br><span class="line">            System.out.println(<span class="string">"active: "</span> + loadingBean.getLoadedClassCount());</span><br><span class="line">            System.out.println(<span class="string">"unloaded: "</span> + loadingBean.getUnloadedClassCount());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>运行输出：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">jvm.MetaSpaceOomMock$$EnhancerByCGLIB$$<span class="number">567f</span>7ec0</span><br><span class="line">total: <span class="number">6265</span></span><br><span class="line">active: <span class="number">6265</span></span><br><span class="line">unloaded: <span class="number">0</span></span><br><span class="line">jvm.MetaSpaceOomMock$$EnhancerByCGLIB$$<span class="number">3501581</span>b</span><br><span class="line">total: <span class="number">6266</span></span><br><span class="line">active: <span class="number">6266</span></span><br><span class="line">unloaded: <span class="number">0</span></span><br><span class="line">Exception in thread <span class="string">"main"</span> net.sf.cglib.core.CodeGenerationException: java.lang.reflect.InvocationTargetException--&gt;<span class="keyword">null</span></span><br><span class="line">    at net.sf.cglib.core.AbstractClassGenerator.generate(AbstractClassGenerator.java:<span class="number">345</span>)</span><br><span class="line">    at net.sf.cglib.proxy.Enhancer.generate(Enhancer.java:<span class="number">492</span>)</span><br><span class="line">    at net.sf.cglib.core.AbstractClassGenerator$ClassLoaderData$<span class="number">3</span>.apply(AbstractClassGenerator.java:<span class="number">93</span>)</span><br><span class="line">    at net.sf.cglib.core.AbstractClassGenerator$ClassLoaderData$<span class="number">3</span>.apply(AbstractClassGenerator.java:<span class="number">91</span>)</span><br><span class="line">    at net.sf.cglib.core.internal.LoadingCache$<span class="number">2</span>.call(LoadingCache.java:<span class="number">54</span>)</span><br><span class="line">    at java.util.concurrent.FutureTask.run(FutureTask.java:<span class="number">266</span>)</span><br><span class="line">    at net.sf.cglib.core.internal.LoadingCache.createEntry(LoadingCache.java:<span class="number">61</span>)</span><br><span class="line">    at net.sf.cglib.core.internal.LoadingCache.get(LoadingCache.java:<span class="number">34</span>)</span><br><span class="line">    at net.sf.cglib.core.AbstractClassGenerator$ClassLoaderData.get(AbstractClassGenerator.java:<span class="number">116</span>)</span><br><span class="line">    at net.sf.cglib.core.AbstractClassGenerator.create(AbstractClassGenerator.java:<span class="number">291</span>)</span><br><span class="line">    at net.sf.cglib.proxy.Enhancer.createHelper(Enhancer.java:<span class="number">480</span>)</span><br><span class="line">    at net.sf.cglib.proxy.Enhancer.createClass(Enhancer.java:<span class="number">337</span>)</span><br><span class="line">    at jvm.MetaSpaceOomMock.main(MetaSpaceOomMock.java:<span class="number">38</span>)</span><br><span class="line">Caused by: java.lang.reflect.InvocationTargetException</span><br><span class="line">    at sun.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)</span><br><span class="line">    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">    at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">    at net.sf.cglib.core.ReflectUtils.defineClass(ReflectUtils.java:<span class="number">413</span>)</span><br><span class="line">    at net.sf.cglib.core.AbstractClassGenerator.generate(AbstractClassGenerator.java:<span class="number">336</span>)</span><br><span class="line">    ... <span class="number">12</span> more</span><br><span class="line">Caused by: java.lang.OutOfMemoryError: Metaspace</span><br><span class="line">    at java.lang.ClassLoader.defineClass1(Native Method)</span><br><span class="line">    at java.lang.ClassLoader.defineClass(ClassLoader.java:<span class="number">763</span>)</span><br><span class="line">    ... <span class="number">17</span> more</span><br></pre></td></tr></table></figure>
+<p>如果是1.7的jdk，那么报OOM的将是PermGen区域。</p>
+<h3 id="6-直接内存"><a href="#6-直接内存" class="headerlink" title="6. 直接内存"></a>6. 直接内存</h3><p>jdk1.4引入了NIO，它可以使用Native函数库直接分配堆外内存。</p>
+
+
+
+            <!-- Pager -->
+            <ul class="pager">
+                
+                
+                <li class="next">
+                    <a href="/lhj/2019/03/21/Git入门/">Next Post &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4><i class="fa fa-bookmark"></i> Catalog</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; keep moving on 2019
+                    <br>
+                    Theme by <a href="http://beantech.org/">Bean Tech</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://1006400320.github.io/lhj">keep moving on</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/lhj/js/script.js"></script>
+
+
+
+
+</body>
+</html>
