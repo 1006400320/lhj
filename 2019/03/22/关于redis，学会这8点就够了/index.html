@@ -65,7 +65,9 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/lhj/tags/#redis,数据库" title="redis,数据库">redis,数据库</a>
+                        <a class="tag" href="/lhj/tags/#redis" title="redis">redis</a>
+                        
+                        <a class="tag" href="/lhj/tags/#数据库" title="数据库">数据库</a>
                         
                     </div>
                     <h1>关于redis，学会这8点就够了</h1>
@@ -132,7 +134,7 @@
 
             <p>原文：<a href="https://blog.csdn.net/middleware2018/article/details/80355418" target="_blank" rel="noopener">https://blog.csdn.net/middleware2018/article/details/80355418</a></p>
 <h3 id="1，redis是什么"><a href="#1，redis是什么" class="headerlink" title="1，redis是什么"></a><strong>1，redis是什么</strong></h3><p><a href="https://www.huaweicloud.com/product/dcs.html?wx" target="_blank" rel="noopener">redis</a>是一种支持Key-Value等多种数据结构的存储系统。可用于<strong>缓存</strong>，<strong>事件发布或订阅</strong>，<strong>高速队列</strong>等场景。该数据库使用ANSI C语言编写，支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。</p>
-<h3 id="2，支持的语言"><a href="#2，支持的语言" class="headerlink" title="2，支持的语言"></a><strong>2，支持的语言</strong></h3><p><img src="https://img-blog.csdnimg.cn/20181224163405267" alt="img"></p>
+<h3 id="2，支持的语言"><a href="#2，支持的语言" class="headerlink" title="2，支持的语言"></a><strong>2，支持的语言</strong></h3><p><img src="/lhj/2019/03/22/关于redis，学会这8点就够了/20181224163405267.png" alt="img"></p>
 <h3 id="3，redis的应用场景有哪些"><a href="#3，redis的应用场景有哪些" class="headerlink" title="3，redis的应用场景有哪些"></a><strong>3，redis的应用场景有哪些</strong></h3><ol>
 <li>会话缓存（最常用）</li>
 <li>消息队列，比如支付</li>
@@ -142,16 +144,16 @@
 </ol>
 <h3 id="4，redis数据类型"><a href="#4，redis数据类型" class="headerlink" title="4，redis数据类型"></a><strong>4，redis数据类型</strong></h3><p><strong>Redis</strong>一共支持五种数据类：<strong>string</strong>（字符串），<strong>hash</strong>（哈希），<strong>list</strong>（列表），<strong>set</strong>（集合）和<strong>zset</strong>（sorted set有序集合）。</p>
 <p>（1）字符串（字符串）<br>它是redis的最基本的数据类型，一个键对应一个值，需要注意是一个键值<strong>最大存储512MB</strong>。</p>
-<p><img src="https://img-blog.csdnimg.cn/20181224163405288" alt="img"></p>
+<p><img src="/lhj/2019/03/22/关于redis，学会这8点就够了/20181224163405288.png" alt="img"></p>
 <p>（2）hash（哈希）<br>redis hash是一个键值对的集合，是一个string类型的field和value的映射表，适合用于存储对象</p>
-<p><img src="https://img-blog.csdnimg.cn/20181224163405306" alt="img"></p>
+<p><img src="/lhj/2019/03/22/关于redis，学会这8点就够了/20181224163405306.png" alt="img"></p>
 <p>（3）表（列表）<br>是redis的简单的字符串列表，它按插入顺序排序</p>
-<p><img src="https://img-blog.csdnimg.cn/20181224163405324" alt="img"></p>
+<p><img src="/lhj/2019/03/22/关于redis，学会这8点就够了/20181224163405324.png" alt="img"></p>
 <p>（4）组（集合）<br>是字符串类型的无序集合，不可重复</p>
 <p><img src="/lhj/2019/03/22/关于redis，学会这8点就够了/微信截图_20190322204524.png" alt="img"></p>
 <p>（5）zset（sorted set有序集合）<br>是string类型的有序集合，也不可重复<br>有序集合中的每个元素都需要指定一个分数，根据分数对元素进行升序排序，如果多个元素有相同的分数，则以字典序进行升序排序，sorted set因此非常适合实现排名</p>
-<p><img src="https://img-blog.csdnimg.cn/20181224163405363" alt="img"></p>
-<h3 id="5，redis的服务相关的命令"><a href="#5，redis的服务相关的命令" class="headerlink" title="5，redis的服务相关的命令"></a><strong>5，redis的服务相关的命令</strong></h3><p><img src="https://img-blog.csdnimg.cn/20181224163405380" alt="img"></p>
+<p><img src="/lhj/2019/03/22/关于redis，学会这8点就够了/20181224163405363.png" alt="img"></p>
+<h3 id="5，redis的服务相关的命令"><a href="#5，redis的服务相关的命令" class="headerlink" title="5，redis的服务相关的命令"></a><strong>5，redis的服务相关的命令</strong></h3><p><img src="/lhj/2019/03/22/关于redis，学会这8点就够了/20181224163405380.png" alt="img"></p>
 <ul>
 <li>select＃选择数据库（数据库编号0-15）</li>
 <li>quit＃退出连接</li>
@@ -162,16 +164,16 @@
 <li>flushall＃删除所有数据库中的键</li>
 </ul>
 <h3 id="6，redis的发布与订阅"><a href="#6，redis的发布与订阅" class="headerlink" title="6，redis的发布与订阅"></a><strong>6，redis的发布与订阅</strong></h3><p>redis的发布与订阅（发布/订阅）是它的一种消息通信模式，一方发送信息，一方接收信息。<br>下图是三个客户端同时订阅同一个频道</p>
-<p><img src="https://img-blog.csdnimg.cn/20181224163405400" alt="img"></p>
-<p>下图是有新信息发送给频道1时，就会将消息发送给订阅它的三个客户端<br><img src="https://img-blog.csdnimg.cn/20181224163405417" alt="img"></p>
+<p><img src="/lhj/2019/03/22/关于redis，学会这8点就够了/20181224163405400.png" alt="img"></p>
+<p>下图是有新信息发送给频道1时，就会将消息发送给订阅它的三个客户端<br><img src="/lhj/2019/03/22/关于redis，学会这8点就够了/20181224163405417.png" alt="img"></p>
 <h3 id="7，redis的持久化"><a href="#7，redis的持久化" class="headerlink" title="7，redis的持久化"></a><strong>7，redis的持久化</strong></h3><p>redis持久有两种方式：快照（RDB），仅附加文件（AOF）</p>
 <h4 id="快照（RDB）"><a href="#快照（RDB）" class="headerlink" title="快照（RDB）"></a>快照（RDB）</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">将存储在内存的数据以快照的方式写入二进制文件中，如默认dump.rdb中</span><br><span class="line">save 900 1  	 # 900秒内如果超过1个Key被修改，则启动快照保存</span><br><span class="line">save 300 10     ＃300秒内如果超过10个Key被修改，则启动快照保存</span><br><span class="line">save 60  10000	＃60秒内如果超过10000个重点被修改，则启动快照保存</span><br></pre></td></tr></table></figure>
 <h4 id="仅附加文件（AOF）"><a href="#仅附加文件（AOF）" class="headerlink" title="仅附加文件（AOF）"></a>仅附加文件（AOF）</h4><p>1，使用AOF持久时，服务会将每个收到的写命令通过写函数追加到文件中（appendonly.aof）<br>2，AOF持久化存储方式参数说明</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">appendonly yes         ＃开启AOF持久化存储方式 </span><br><span class="line">appendfsync always     ＃收到写命令后就立即写入磁盘，效率最差，效果最好</span><br><span class="line">appendfsync everysec   ＃每秒写入磁盘一次，效率与效果居中</span><br><span class="line">appendfsync no		    ＃完全依赖操作系统，效率最佳，效果没法保证</span><br></pre></td></tr></table></figure>
 <h3 id="8，redis的性能测试"><a href="#8，redis的性能测试" class="headerlink" title="8，redis的性能测试"></a><strong>8，redis的性能测试</strong></h3><p>自带相关测试工具</p>
-<p><img src="https://img-blog.csdnimg.cn/20181224163405438" alt="img"></p>
+<p><img src="/lhj/2019/03/22/关于redis，学会这8点就够了/20181224163405438.png" alt="img"></p>
 <p>实际测试同时执行100万的请求</p>
-<p><img src="https://img-blog.csdnimg.cn/20181224163405456" alt="img"></p>
+<p><img src="/lhj/2019/03/22/关于redis，学会这8点就够了/20181224163405456.png" alt="img"></p>
 
 
 
