@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/image/favicon.jpg">
+    
+
+    <title>
+        
+        Git常用命令 |
+        
+        keep moving on
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/lhj/css/style.css">
+    <link rel="stylesheet" href="/lhj/css/home.css">
+    <link rel="stylesheet" href="/lhj/css/highlight.css">
+    <link rel="stylesheet" href="/lhj/css/toc.css">
+
+
+</head>
+<body></body>
+</html>
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+     background-image: url('/lhj/image/header.jpg'); 
+	/*
+	 background-image: url('');
+        /*post*/
+    
+	*/
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/lhj/tags/#Git" title="Git">Git</a>
+                        
+                    </div>
+                    <h1>Git常用命令</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                            Posted by linhuanjie on
+                        2019-03-28
+                        </span>
+                </div>
+                <!-- 非文章 -->
+                
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/lhj/">keep moving on</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <!-- Post container -->
+
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+
+            <p>原文：<a href="https://mp.weixin.qq.com/s?__biz=MzUxOTc4NjEyMw==&amp;mid=2247483986&amp;idx=1&amp;sn=07e7bc79e8544f90833aa8118dbe29fd&amp;chksm=f9f519b6ce8290a03ea949f4c9bebae55d2f3d847a3e25b3fcf6aadcbb75a1d5a7530e7ff942&amp;mpshare=1&amp;scene=2&amp;srcid=&amp;from=timeline&amp;key=4ec74a34b449763ddd70557494a017b26bb08a3e05199d2bb9cb859ad2866c992ecda7fdc632ef1bf5efc6c076ba8ac4d7d8856679bfc1c63677a0e0d7d372410f160ea18cc00358166452fe3b208870&amp;ascene=14&amp;uin=MjQ1MzY1NzgxNw%3D%3D&amp;devicetype=Windows+10&amp;version=62060739&amp;lang=zh_CN&amp;pass_ticket=f0%2BaQRpzY2RXoDEVQNgXxCwGgVkTpJ%2BkBJRtUdtleYpcYgsS%2FTfuLmW1zYukoqB6" target="_blank" rel="noopener">工作中 99% 能用到的 Git 命令</a></p>
+<h1 id="分支操作"><a href="#分支操作" class="headerlink" title="分支操作"></a>分支操作</h1><ol>
+<li>git branch 创建分支</li>
+<li>git branch -b 创建并切换到新建的分支上</li>
+<li>git checkout 切换分支</li>
+<li>git branch 查看分支列表</li>
+<li>git branch -v 查看所有分支的最后一次操作</li>
+<li>git branch -vv 查看当前分支</li>
+<li>git brabch -b 分支名 origin/分支名 创建远程分支到本地</li>
+<li>git branch –merged 查看别的分支和当前分支合并过的分支</li>
+<li>git branch –no-merged 查看未与当前分支合并的分支</li>
+<li>git branch -d 分支名 删除本地分支</li>
+<li>git branch -D 分支名 强行删除分支</li>
+<li>git branch origin :分支名 删除远处仓库分支</li>
+<li>git merge 分支名 合并分支到当前分支上</li>
+</ol>
+<h1 id="暂存操作"><a href="#暂存操作" class="headerlink" title="暂存操作"></a>暂存操作</h1><ol>
+<li>git stash 暂存当前修改</li>
+<li>git stash apply 恢复最近的一次暂存</li>
+<li>git stash pop 恢复暂存并删除暂存记录</li>
+<li>git stash list 查看暂存列表</li>
+<li>git stash drop 暂存名(例：stash@{0}) 移除某次暂存</li>
+<li>git stash clear 清除暂存</li>
+</ol>
+<h1 id="回退操作"><a href="#回退操作" class="headerlink" title="回退操作"></a>回退操作</h1><ol>
+<li>git reset –hard HEAD^ 回退到上一个版本</li>
+<li>git reset –hard ahdhs1(commit_id) 回退到某个版本</li>
+<li>git checkout – file撤销修改的文件(如果文件加入到了暂存区，则回退到暂存区的，如果文件加入到了版本库，则还原至加入版本库之后的状态)</li>
+<li>git reset HEAD file 撤回暂存区的文件修改到工作区</li>
+</ol>
+<h1 id="标签操作"><a href="#标签操作" class="headerlink" title="标签操作"></a>标签操作</h1><ol>
+<li>git tag 标签名 添加标签(默认对当前版本)</li>
+<li>git tag 标签名 commit_id 对某一提交记录打标签</li>
+<li>git tag -a 标签名 -m ‘描述’ 创建新标签并增加备注</li>
+<li>git tag 列出所有标签列表</li>
+<li>git show 标签名 查看标签信息</li>
+<li>git tag -d 标签名 删除本地标签</li>
+<li>git push origin 标签名 推送标签到远程仓库</li>
+<li>git push origin –tags 推送所有标签到远程仓库</li>
+<li>git push origin :refs/tags/标签名 从远程仓库中删除标签</li>
+</ol>
+<h1 id="常规操作"><a href="#常规操作" class="headerlink" title="常规操作"></a>常规操作</h1><ol>
+<li>git push origin test 推送本地分支到远程仓库</li>
+<li>git rm -r –cached 文件/文件夹名字 取消文件被版本控制</li>
+<li>git reflog 获取执行过的命令</li>
+<li>git log –graph 查看分支合并图</li>
+<li>git merge –no-ff -m ‘合并描述’ 分支名 不使用Fast forward方式合并，采用这种方式合并可以看到合并记录</li>
+<li>git check-ignore -v 文件名 查看忽略规则</li>
+<li>git add -f 文件名 强制将文件提交</li>
+</ol>
+<h2 id="git创建项目仓库"><a href="#git创建项目仓库" class="headerlink" title="git创建项目仓库"></a>git创建项目仓库</h2><ol>
+<li>git init 初始化</li>
+<li>git remote add origin url 关联远程仓库</li>
+<li>git pull</li>
+<li>git fetch 获取远程仓库中所有的分支到本地</li>
+</ol>
+<h2 id="忽略已加入到版本库中的文件"><a href="#忽略已加入到版本库中的文件" class="headerlink" title="忽略已加入到版本库中的文件"></a>忽略已加入到版本库中的文件</h2><ol>
+<li>git update-index –assume-unchanged file 忽略单个文件</li>
+<li>git rm -r –cached 文件/文件夹名字 (. 忽略全部文件)</li>
+</ol>
+<h2 id="取消忽略文件"><a href="#取消忽略文件" class="headerlink" title="取消忽略文件"></a>取消忽略文件</h2><ol>
+<li>git update-index –no-assume-unchanged file</li>
+</ol>
+<h2 id="拉取、上传免密码"><a href="#拉取、上传免密码" class="headerlink" title="拉取、上传免密码"></a>拉取、上传免密码</h2><ol>
+<li>git config –global credential.helper store</li>
+</ol>
+
+
+
+            <!-- Pager -->
+            <ul class="pager">
+                
+                
+                <li class="next">
+                    <a href="/lhj/2019/03/24/克隆虚拟机操作/">Next Post &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4><i class="fa fa-bookmark"></i> Catalog</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; keep moving on 2019
+                    <br>
+                    Theme by <a href="http://beantech.org/">Bean Tech</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://1006400320.github.io/lhj">keep moving on</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/lhj/js/script.js"></script>
+
+
+
+
+</body>
+</html>
