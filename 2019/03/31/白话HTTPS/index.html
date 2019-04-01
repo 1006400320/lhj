@@ -136,13 +136,13 @@
 <p>作者：滴水微澜</p>
 <p>cnblogs.com/zhou–fei/p/9932821.html</p>
 </blockquote>
-<h3 id="闲扯一下"><a href="#闲扯一下" class="headerlink" title="闲扯一下"></a><strong>闲扯一下</strong></h3><p>Mac笔记本、Windows台式机、Linux主机。像这三种类型，它们硬件不同，系统不同，服务端处理的编程语言不同。它们之间却可以在网络的世界了自由联通。靠的是什么呢？靠的是它们遵守相同的规则（如：HTTP）。应用层用什么格式（语言编码，报文字段）封装报文、传输层如何将大量的数据分段，并给每帧数据添加编号和端口信息、网络层如何给每帧数据添加IP地址，目标MAC地址、数据链路层如何将数字信息通过网卡发出去。</p>
-<h3 id="HTTPS是传输协议吗？"><a href="#HTTPS是传输协议吗？" class="headerlink" title="HTTPS是传输协议吗？"></a><strong>HTTPS是传输协议吗？</strong></h3><p>目前常见的应用层协议</p>
+<h1 id="闲扯一下"><a href="#闲扯一下" class="headerlink" title="闲扯一下"></a><strong>闲扯一下</strong></h1><p>Mac笔记本、Windows台式机、Linux主机。像这三种类型，它们硬件不同，系统不同，服务端处理的编程语言不同。它们之间却可以在网络的世界了自由联通。靠的是什么呢？靠的是它们遵守相同的规则（如：HTTP）。应用层用什么格式（语言编码，报文字段）封装报文、传输层如何将大量的数据分段，并给每帧数据添加编号和端口信息、网络层如何给每帧数据添加IP地址，目标MAC地址、数据链路层如何将数字信息通过网卡发出去。</p>
+<h1 id="HTTPS是传输协议吗？"><a href="#HTTPS是传输协议吗？" class="headerlink" title="HTTPS是传输协议吗？"></a><strong>HTTPS是传输协议吗？</strong></h1><p>目前常见的应用层协议</p>
 <p> <img src="/lhj/2019/03/31/白话HTTPS/826860-20181108235246004-62177765.png" alt="应用层协议"></p>
 <p>好像没有看到HTTPS啊？</p>
 <p>没错，HTTPS并非TCP/IP协议族中的一员，它其实是HTTP协议+SSL协议的组合体，是披着SSL外衣的HTTP。</p>
-<h3 id="HTTPS与HTTP有什么关系？"><a href="#HTTPS与HTTP有什么关系？" class="headerlink" title="HTTPS与HTTP有什么关系？"></a><strong>HTTPS与HTTP有什么关系？</strong></h3><p>HTTP实现的功能：一种机制简单（这也是从早期众多传输协议中走出来的原因）的超文本传输协议，为客户端和服务器通信服务，是处在TCP/IP协议族中的应用层协议。</p>
-<h4 id="HTTP在发送请求时，采用四层架构。"><a href="#HTTP在发送请求时，采用四层架构。" class="headerlink" title="HTTP在发送请求时，采用四层架构。"></a><strong>HTTP在发送请求时，采用四层架构。</strong></h4><ul>
+<h1 id="HTTPS与HTTP有什么关系？"><a href="#HTTPS与HTTP有什么关系？" class="headerlink" title="HTTPS与HTTP有什么关系？"></a><strong>HTTPS与HTTP有什么关系？</strong></h1><p>HTTP实现的功能：一种机制简单（这也是从早期众多传输协议中走出来的原因）的超文本传输协议，为客户端和服务器通信服务，是处在TCP/IP协议族中的应用层协议。</p>
+<h2 id="HTTP在发送请求时，采用四层架构。"><a href="#HTTP在发送请求时，采用四层架构。" class="headerlink" title="HTTP在发送请求时，采用四层架构。"></a><strong>HTTP在发送请求时，采用四层架构。</strong></h2><ul>
 <li><p>应用层：提供多种应用服务，如：HTTP  FTP  DNS等，可以直接提供给开发者使用。</p>
 </li>
 <li><p>传输层：网络间数据的传输，如：TCP TDP，报文数据分割打包成帧</p>
@@ -153,27 +153,27 @@
 </li>
 </ul>
 <p><img src="/lhj/2019/03/31/白话HTTPS/826860-20181108235444873-1399719908.png" alt="应用层协议"> </p>
-<h4 id="HTTP请求过程中的重要概念！"><a href="#HTTP请求过程中的重要概念！" class="headerlink" title="HTTP请求过程中的重要概念！"></a><strong>HTTP请求过程中的重要概念！</strong></h4><h5 id="1-数据包在网络层怎么走的呢？"><a href="#1-数据包在网络层怎么走的呢？" class="headerlink" title="1.数据包在网络层怎么走的呢？"></a>1.数据包在网络层怎么走的呢？</h5><p>在数据包传输过程中，需要不断使用地址解析协议（IP和MAC地址对应的表，互相反查），进行路由选择（将数据包丢给一个路由器，路由器会根据数据包上带的地址，自动分拣，传给它认为比较好的下一站路，直到到达目的地）</p>
+<h2 id="HTTP请求过程中的重要概念！"><a href="#HTTP请求过程中的重要概念！" class="headerlink" title="HTTP请求过程中的重要概念！"></a><strong>HTTP请求过程中的重要概念！</strong></h2><h3 id="1-数据包在网络层怎么走的呢？"><a href="#1-数据包在网络层怎么走的呢？" class="headerlink" title="1.数据包在网络层怎么走的呢？"></a>1.数据包在网络层怎么走的呢？</h3><p>在数据包传输过程中，需要不断使用地址解析协议（IP和MAC地址对应的表，互相反查），进行路由选择（将数据包丢给一个路由器，路由器会根据数据包上带的地址，自动分拣，传给它认为比较好的下一站路，直到到达目的地）</p>
 <p> <img src="/lhj/2019/03/31/白话HTTPS/826860-20181108235544080-758195202.png" alt="应用层协议"></p>
-<h5 id="2-TCP通讯三次握手"><a href="#2-TCP通讯三次握手" class="headerlink" title="2.TCP通讯三次握手"></a>2.TCP通讯三次握手</h5><p>第一次握手：客户端 发送<a href="https://baike.baidu.com/item/syn" target="_blank" rel="noopener">syn</a>包（syn=j）到 服务器，并进入<a href="https://baike.baidu.com/item/SYN_SENT" target="_blank" rel="noopener">SYN_SENT</a>状态，等待服务器确认；SYN：同步序列编号（<strong><em>Synchronize Sequence Numbers</em></strong>）。</p>
+<h3 id="2-TCP通讯三次握手"><a href="#2-TCP通讯三次握手" class="headerlink" title="2.TCP通讯三次握手"></a>2.TCP通讯三次握手</h3><p>第一次握手：客户端 发送<a href="https://baike.baidu.com/item/syn" target="_blank" rel="noopener">syn</a>包（syn=j）到 服务器，并进入<a href="https://baike.baidu.com/item/SYN_SENT" target="_blank" rel="noopener">SYN_SENT</a>状态，等待服务器确认；SYN：同步序列编号（<strong><em>Synchronize Sequence Numbers</em></strong>）。</p>
 <p>第二次握手：服务器收到<a href="https://baike.baidu.com/item/syn" target="_blank" rel="noopener">syn</a>包，必须确认客户端的SYN（<a href="https://baike.baidu.com/item/ack" target="_blank" rel="noopener">ack</a>=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入<a href="https://baike.baidu.com/item/SYN_RECV" target="_blank" rel="noopener">SYN_RECV</a>状态；</p>
 <p>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(<a href="https://baike.baidu.com/item/ack" target="_blank" rel="noopener">ack</a>=k+1），此包发送完毕，客户端和服务器进入<a href="https://baike.baidu.com/item/ESTABLISHED" target="_blank" rel="noopener">ESTABLISHED</a>（TCP连接成功）状态，完成三次握手。</p>
-<h5 id="3-DNS域名解析服务：在浏览器输入url后，点击enter。"><a href="#3-DNS域名解析服务：在浏览器输入url后，点击enter。" class="headerlink" title="3.DNS域名解析服务：在浏览器输入url后，点击enter。"></a>3.DNS域名解析服务：在浏览器输入url后，点击enter。</h5><p>1.网络首先会拿填写的域名到dns服务器查询对应的IP地址。</p>
+<h3 id="3-DNS域名解析服务：在浏览器输入url后，点击enter。"><a href="#3-DNS域名解析服务：在浏览器输入url后，点击enter。" class="headerlink" title="3.DNS域名解析服务：在浏览器输入url后，点击enter。"></a>3.DNS域名解析服务：在浏览器输入url后，点击enter。</h3><p>1.网络首先会拿填写的域名到dns服务器查询对应的IP地址。</p>
 <p>2.浏览器将请求传给返回的IP地址。</p>
-<h5 id="4-HTTP与HTTPS通信的区别"><a href="#4-HTTP与HTTPS通信的区别" class="headerlink" title="4.HTTP与HTTPS通信的区别"></a>4.HTTP与HTTPS通信的区别</h5><p><img src="/lhj/2019/03/31/白话HTTPS/826860-20181108235633878-1120657050.png" alt="应用层协议"></p>
+<h3 id="4-HTTP与HTTPS通信的区别"><a href="#4-HTTP与HTTPS通信的区别" class="headerlink" title="4.HTTP与HTTPS通信的区别"></a>4.HTTP与HTTPS通信的区别</h3><p><img src="/lhj/2019/03/31/白话HTTPS/826860-20181108235633878-1120657050.png" alt="应用层协议"></p>
 <p>只是在应用层与传输层之间添加了一个SSL层</p>
-<h3 id="HTTPS为什么会安全？"><a href="#HTTPS为什么会安全？" class="headerlink" title="HTTPS为什么会安全？"></a><strong>HTTPS为什么会安全？</strong></h3><p>既然HTTPS是披着SSL外衣的HTTP，那SSL是什么呢？</p>
-<p>SSL是安全套接字层，是目前比较成熟的提供可靠数据传输的安全协议。SSL可以提供证书认证，数据加密，完整性保护等保护性策略。</p>
-<h4 id="数据加密原理"><a href="#数据加密原理" class="headerlink" title="数据加密原理"></a><strong>数据加密原理</strong></h4><p>SSL(Secure Sockets Layer <a href="https://baike.baidu.com/item/%E5%AE%89%E5%85%A8%E5%A5%97%E6%8E%A5%E5%B1%82" target="_blank" rel="noopener">安全套接层</a>)：采用的加密策略是：非对称加密+对称加密的混合加密方式</p>
+<h1 id="HTTPS为什么会安全？"><a href="#HTTPS为什么会安全？" class="headerlink" title="HTTPS为什么会安全？"></a><strong>HTTPS为什么会安全？</strong></h1><p>既然HTTPS是披着SSL外衣的HTTP，那SSL是什么呢？</p>
+<p>SSL是<strong>安全套接字层</strong>，是目前比较成熟的提供可靠数据传输的安全协议。SSL可以<strong>提供证书认证</strong>，<strong>数据加密</strong>，<strong>完整性保护</strong>等保护性策略。</p>
+<h2 id="数据加密原理"><a href="#数据加密原理" class="headerlink" title="数据加密原理"></a><strong>数据加密原理</strong></h2><p>SSL(Secure Sockets Layer <a href="https://baike.baidu.com/item/%E5%AE%89%E5%85%A8%E5%A5%97%E6%8E%A5%E5%B1%82" target="_blank" rel="noopener">安全套接层</a>)：采用的加密策略是：非对称加密+对称加密的混合加密方式</p>
 <p>对称加密：单纯的对称加密，加密解密的效率高，但是在客户端于服务端共享密钥时，容易被中间劫持泄露，不够安全</p>
 <p>非对称加密：是新一代加密方案，加密解密销量低，但是可以实现密钥的安全传输，想通过公钥解出私钥难道极大，基本不可能。</p>
-<p>最中采用在第一次交换共享密钥时，使用非对称加密。然后用共享密钥加密。这样既避免了密钥被劫持，又保证了效率</p>
-<h4 id="数据完整性策略"><a href="#数据完整性策略" class="headerlink" title="数据完整性策略"></a><strong>数据完整性策略</strong></h4><p>采用报文摘要的策略，防止报文主题被修改</p>
+<p>最终采用在第一次交换共享密钥时，使用非对称加密。然后用共享密钥加密。这样既避免了密钥被劫持，又保证了效率</p>
+<h2 id="数据完整性策略"><a href="#数据完整性策略" class="headerlink" title="数据完整性策略"></a><strong>数据完整性策略</strong></h2><p>采用报文摘要的策略，防止报文主题被修改</p>
 <p>在报文发送前，先通过md5-base64加密，得到一个报文主体的摘要，把这个摘要放到请求首部中，等服务器收到信息，采用同样的算法，加密报文主体，根据得到的结果是否和报文摘要一致来判断数据的完整性。</p>
-<h4 id="SSL和TLS的关系"><a href="#SSL和TLS的关系" class="headerlink" title="SSL和TLS的关系"></a><strong>SSL和TLS的关系</strong></h4><p>目前常见的加密协议有两个SSL3.0和TLS1.0，它们之间有什么区别呢？</p>
+<h2 id="SSL和TLS的关系"><a href="#SSL和TLS的关系" class="headerlink" title="SSL和TLS的关系"></a><strong>SSL和TLS的关系</strong></h2><p>目前常见的加密协议有两个SSL3.0和TLS1.0，它们之间有什么区别呢？</p>
 <p> SSL（Secure Socket Layer）：是由浏览器开发商网景通信公司发起并开发到了SSL3.0版本</p>
 <p> TLS（Transport Layer Security）：后面主导权移交给了IETF组织，他们在SSL3.0基础上开发了 TLS一系列版本。它们是“父子”关系。</p>
-<h4 id="HTTPS协议安全通信步骤"><a href="#HTTPS协议安全通信步骤" class="headerlink" title="HTTPS协议安全通信步骤"></a><strong>HTTPS协议安全通信步骤</strong></h4><p>HTTPS协议安全通信步骤中有三个主角元素：客户端，服务器，第三方可信任的证书颁发机构</p>
+<h2 id="HTTPS协议安全通信步骤"><a href="#HTTPS协议安全通信步骤" class="headerlink" title="HTTPS协议安全通信步骤"></a><strong>HTTPS协议安全通信步骤</strong></h2><p>HTTPS协议安全通信步骤中有三个主角元素：客户端，服务器，第三方可信任的证书颁发机构</p>
 <p>过程如下：</p>
 <p>1.服务器的运维人员向“第三方可信任的证书颁发机构”提供公司的有效信息+公钥。</p>
 <p>2.“第三方可信任的证书颁发机构”认证公司有效，就用“第三方可信任的证书颁发机构”的私钥给服务器的公钥签名，然后创建一个证书，证书中加入了公钥+公钥签名结果，发给服务器。服务器运营人员需要支付一定的费用。</p>
