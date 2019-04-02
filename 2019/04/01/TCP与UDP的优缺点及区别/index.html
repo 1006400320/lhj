@@ -148,9 +148,7 @@
 <p>在日常生活中，常见使用TCP协议的应用如下： 浏览器，用的HTTP FlashFXP，用的FTP Outlook，用的POP、SMTP Putty，用的Telnet、SSH QQ文件传输 ………… </p>
 <p>什么时候应该使用UDP： 当对网络通讯质量要求不高的时候，要求网络通讯速度能尽量的快，这时就可以使用UDP。 比如，日常生活中，常见使用UDP协议的应用如下： QQ语音 QQ视频 TFTP ……</p>
 <p>有些应用场景对可靠性要求不高会用到UPD，比如长视频，要求速率</p>
-<h3 id="小结TCP与UDP的区别："><a href="#小结TCP与UDP的区别：" class="headerlink" title="小结TCP与UDP的区别："></a><strong>小结TCP与UDP的区别：</strong></h3><p>1.基于<strong>连接</strong>与无连接；<br>2.对<strong>系统资源</strong>的要求（TCP较多，UDP少）；<br>3.UDP<strong>程序结构</strong>较简单；<br>4.流模式与数据报模式 ；<br>5.TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证。</p>
-<p>### </p>
-<table>
+<h3 id="TCP与UDP的区别："><a href="#TCP与UDP的区别：" class="headerlink" title="TCP与UDP的区别："></a><strong>TCP与UDP的区别：</strong></h3><table>
 <thead>
 <tr>
 <th></th>
@@ -161,8 +159,8 @@
 <tbody>
 <tr>
 <td>是否连接</td>
-<td>面向连接</td>
-<td>面向非连接</td>
+<td>面向连接（面向字节流）</td>
+<td>面向非连接（面向报文）</td>
 </tr>
 <tr>
 <td>传输可靠性</td>
@@ -177,18 +175,29 @@
 <tr>
 <td>速度</td>
 <td>慢</td>
-<td>快</td>
+<td>快（可用于IP电话，实时视频会议等）</td>
+</tr>
+<tr>
+<td>对系统资源的要求</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>是否有序</td>
+<td>有序</td>
+<td>无序</td>
+</tr>
+<tr>
+<td>连接方式</td>
+<td>点到点</td>
+<td>一对一、一对多、多对一、多对多</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p>TCP与UDP区别总结：</p>
-<p>1、TCP面向连接（三次握手）;UDP是无连接的，即发送数据之前不需要建立连接</p>
-<p>2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付</p>
-<p>3、TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的</p>
-<p>UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）</p>
-<p>4、每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信</p>
-<p>5、TCP首部开销20字节;UDP的首部开销小，只有8个字节</p>
-<p>6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</p>
 
 
 
