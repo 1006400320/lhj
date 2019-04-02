@@ -163,11 +163,12 @@
 <h3 id="4-HTTP与HTTPS通信的区别"><a href="#4-HTTP与HTTPS通信的区别" class="headerlink" title="4.HTTP与HTTPS通信的区别"></a>4.HTTP与HTTPS通信的区别</h3><p><img src="/lhj/2019/03/31/白话HTTPS/826860-20181108235633878-1120657050.png" alt="应用层协议"></p>
 <p>只是在应用层与传输层之间添加了一个SSL层</p>
 <h3 id="5-四次挥手"><a href="#5-四次挥手" class="headerlink" title="5.四次挥手"></a>5.四次挥手</h3><p><img src="/lhj/2019/03/31/白话HTTPS/0_1312718564tZXD.gif" alt=""></p>
-<p>假设Client端发起中断连接请求，也就是发送FIN报文。Server端接到FIN报文后，意思是说”我Client端没有数据要发给你了”，但是如果你还有数据没有发送完成，则不必急着关闭Socket，可以继续发送数据。</p>
-<p>所以你先发送ACK，”告诉Client端，你的请求我收到了，但是我还没准备好，请继续你等我的消息”。这个时候Client端就进入FIN_WAIT状态，继续等待Server端的FIN报文。</p>
-<p>当Server端确定数据已发送完成，则向Client端发送FIN报文，”告诉Client端，好了，我这边数据发完了，准备好关闭连接了”。</p>
-<p>Client端收到FIN报文后，”就知道可以关闭连接了，但是他还是不相信网络，怕Server端不知道要关闭，所以发送ACK后进入TIME_WAIT状态，如果Server端没有收到ACK则可以重传。“，Server端收到ACK后，”就知道可以断开连接了”。Client端等待了2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，我Client端也可以关闭连接了。</p>
-<p>Ok，TCP连接就这样关闭了！</p>
+<ul>
+<li>第一次：客户端向服务器发送FIN=M 报文；</li>
+<li>第二次：服务端收到FIN后，先发送ack=M+1，告诉客户端“你的请求的收到了”。</li>
+<li>第三次：服务端确定数据已经发送完成，则向客户端发送FIN=N报文，告诉客户端数据发送完成，准备好关闭连接了</li>
+<li>第四次：客户端收到FIN=N报文后，就知道可以关闭连接了，向服务端发送ack=1，ack=N+1。但是网络等因素，服务端可能接受不到ack包，所以会先等待一段时间（2分钟）。最终完成四次挥手</li>
+</ul>
 <h1 id="HTTPS为什么会安全？"><a href="#HTTPS为什么会安全？" class="headerlink" title="HTTPS为什么会安全？"></a><strong>HTTPS为什么会安全？</strong></h1><p>既然HTTPS是披着SSL外衣的HTTP，那SSL是什么呢？</p>
 <p>SSL是<strong>安全套接字层</strong>，是目前比较成熟的提供可靠数据传输的安全协议。SSL可以<strong>提供证书认证</strong>，<strong>数据加密</strong>，<strong>完整性保护</strong>等保护性策略。</p>
 <h2 id="数据加密原理"><a href="#数据加密原理" class="headerlink" title="数据加密原理"></a><strong>数据加密原理</strong></h2><p>SSL(Secure Sockets Layer <a href="https://baike.baidu.com/item/%E5%AE%89%E5%85%A8%E5%A5%97%E6%8E%A5%E5%B1%82" target="_blank" rel="noopener">安全套接层</a>)：采用的加密策略是：非对称加密+对称加密的混合加密方式</p>
