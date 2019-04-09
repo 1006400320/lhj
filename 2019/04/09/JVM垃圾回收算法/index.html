@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/image/favicon.jpg">
+    
+
+    <title>
+        
+        JVM垃圾回收算法 |
+        
+        keep moving on
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/lhj/css/style.css">
+    <link rel="stylesheet" href="/lhj/css/home.css">
+    <link rel="stylesheet" href="/lhj/css/highlight.css">
+    <link rel="stylesheet" href="/lhj/css/toc.css">
+
+
+</head>
+<body></body>
+</html>
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+     background-image: url('/lhj/image/header.jpg'); 
+	/*
+	 background-image: url('');
+        /*post*/
+    
+	*/
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/lhj/tags/jvm" title="jvm">jvm</a>
+                        
+                    </div>
+                    <h1>JVM垃圾回收算法</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                            Posted by linhuanjie on
+                        2019-04-09
+                        </span>
+                </div>
+                <!-- 非文章 -->
+                
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/lhj/">keep moving on</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <!-- Post container -->
+
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+
+            <blockquote>
+<p>作者：<a href="https://home.cnblogs.com/u/java-zhao/" target="_blank" rel="noopener">赵计刚</a></p>
+<p>原文：<a href="https://www.cnblogs.com/java-zhao/p/5183261.html" target="_blank" rel="noopener">JVM垃圾回收算法</a></p>
+</blockquote>
+<p>说明：在阅读本篇之前，需要知道怎么判断对象的存活与否，见《<a href="http://www.cnblogs.com/java-zhao/p/5183048.html" target="_blank" rel="noopener">第三章 JVM内存回收区域+对象存活的判断+引用类型+垃圾回收线程</a>》</p>
+<p>注意：本文主要参考自《分布式Java应用：基础与实践》，与《深入理解Java虚拟机（第二版）》中的一些说法有一些不同，但是原理一致</p>
+<h3 id="1、三种垃圾回收算法"><a href="#1、三种垃圾回收算法" class="headerlink" title="1、三种垃圾回收算法"></a><strong>1、三种垃圾回收算法</strong></h3><ul>
+<li>标记-清除（老年代）</li>
+<li>标记-整理（即标记-压缩）（老年代）</li>
+<li>复制（新生代）</li>
+</ul>
+<h4 id="1-1、标记-清除算法"><a href="#1-1、标记-清除算法" class="headerlink" title="1.1、标记-清除算法"></a><strong>1.1、标记-清除算法</strong></h4><p><img src="/lhj/2019/04/09/JVM垃圾回收算法/866881-20160205133829429-1465434708.jpg" alt=""></p>
+<p><strong>原理</strong>：</p>
+<ul>
+<li>从根集合节点进行扫描，<strong>标记出所有的存活对象</strong>，最后<strong>扫描整个内存空间</strong>并清除没有标记的对象（即死亡对象）</li>
+</ul>
+<p><strong>适用场合</strong>：</p>
+<ul>
+<li>存活对象较多的情况下比较高效</li>
+<li><strong>适用于老年代（即旧生代）</strong></li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li><strong>容易产生内存碎片</strong>，再来一个比较大的对象时（典型情况：该对象的大小大于空闲表中的每一块儿大小但是小于其中两块儿的和），会提前触发垃圾回收</li>
+<li>扫描了整个空间两次（第一次：标记存活对象；第二次：清除没有标记的对象）</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>在该情况下，内存不规整，对象的内存分配采用”空闲列表法”，见《<a href="http://www.cnblogs.com/java-zhao/p/5180492.html" target="_blank" rel="noopener">第二章JVM内存分配</a> 》</li>
+</ul>
+<h4 id="1-2、标记整理算法"><a href="#1-2、标记整理算法" class="headerlink" title="1.2、标记整理算法"></a><strong>1.2、标记整理算法</strong></h4><p><img src="/lhj/2019/04/09/JVM垃圾回收算法/866881-20160205135344475-131881942.jpg" alt=""></p>
+<p><strong>原理：</strong></p>
+<ul>
+<li>从根集合节点进行<strong>扫描</strong>，标记出所有的存活对象，<strong>最后扫描整个内存空间</strong>并清除没有标记的对象（即死亡对象）（可以发现前边这些就是标记-清除算法的原理），清除完之后，将所有的存活对象左移到一起。</li>
+</ul>
+<p><strong>适用场合：</strong></p>
+<ul>
+<li>用于老年代（即旧生代）</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>需要移动对象，若对象非常多而且标记回收后的内存非常不完整，可能移动这个动作也会耗费一定时间</li>
+</ul>
+<p><strong>优点：</strong></p>
+<ul>
+<li>不会产生内存碎片</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>在该情况下，内存规整，对象的内存分配采用”指针碰撞法”，见《<a href="http://www.cnblogs.com/java-zhao/p/5180492.html" target="_blank" rel="noopener">第二章 JVM内存分配</a>》</li>
+</ul>
+<h4 id="1-3、复制算法"><a href="#1-3、复制算法" class="headerlink" title="1.3、复制算法"></a><strong>1.3、复制算法</strong></h4><p><img src="https://images2015.cnblogs.com/blog/866881/201602/866881-20160205143501116-1245719379.jpg" alt="img"></p>
+<p><strong>原理：</strong></p>
+<ul>
+<li>从根集合节点进行扫描，标记出所有的存活对象，并将这些存活的对象复制到一块儿新的内存（图中下边的那一块儿内存）上去，之后将原来的那一块儿内存（图中上边的那一块儿内存）全部回收掉</li>
+</ul>
+<p><strong>适用场合：</strong></p>
+<ul>
+<li>存活对象较少的情况下比较高效</li>
+<li>扫描了整个空间一次（标记存活对象并复制移动）</li>
+<li>适用于年轻代（即新生代）：基本上98%的对象是”朝生夕死”的，存活下来的会很少</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>需要一块儿空的内存空间</li>
+<li>需要复制移动对象</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>在该情况下，内存规整，对象的内存分配采用”指针碰撞法”，见《<a href="http://www.cnblogs.com/java-zhao/p/5180492.html" target="_blank" rel="noopener">第二章 JVM内存分配</a>》</li>
+<li>以空间换时间：通过一块儿空内存的使用，减少了一次扫描</li>
+</ul>
+<h3 id="2、垃圾回收机制"><a href="#2、垃圾回收机制" class="headerlink" title="2、垃圾回收机制"></a><strong>2、垃圾回收机制</strong></h3><p>根据《<a href="http://www.cnblogs.com/java-zhao/p/5179836.html" target="_blank" rel="noopener">第一章 JVM内存结构</a>》所说，<strong>年轻代</strong>分为Eden区和survivor区（两块儿：from和to），且Eden:from:to==8:1:1</p>
+<p>1）新产生的对象优先分配在Eden区（除非配置了-XX:PretenureSizeThreshold，大于该值的对象会直接进入年老代）；</p>
+<p>2）当Eden区满了或放不下了，这时候其中存活的对象会复制到from区（这里，需要注意的是，如果存活下来的对象from区都放不下，则这些存活下来的对象全部进入年老代），之后Eden区的内存全部回收掉；注意：如果是Eden区没有满，但是来了一个小对象Eden区放不下，这时候Eden区存活对象复制到from区后，清空Eden区，之后刚才的小对象再进入Eden区</p>
+<p>3）之后产生的对象继续分配在Eden区，当Eden区又满了或放不下了，这时候将会把Eden区和from区存活下来的对象复制到to区（同理，如果存活下来的对象to区都放不下，则这些存活下来的对象全部进入年老代），之后回收掉Eden区和from区的所有内存；</p>
+<p>4）如上这样，会有很多对象会被复制很多次（每复制一次，对象的年龄就+1），默认情况下，当对象被复制了15次（这个次数可以通过：-XX:MaxTenuringThreshold来配置），就会进入年老代了</p>
+<p>5）当年老代满了或者存放不下将要进入年老代的存活对象的时候，就会发生一次Full GC（这个是我们最需要减少的，因为耗时很严重）</p>
+<h3 id="3、总结："><a href="#3、总结：" class="headerlink" title="3、总结："></a><strong>3、总结：</strong></h3><ul>
+<li><strong>年轻代：复制算法</strong></li>
+<li><strong>老年代：标记-清除或标记-整理</strong>（前者相较于后者会快一些但是会产生内存碎片，后者相较于前者不会产生内存碎片但是由于要移动存活对象所以会慢一些）</li>
+<li>以上这种年轻代与老年代分别采用不同回收算法的方式称为”<strong>分代收集算法</strong>“，这也是当下企业使用的一种方式</li>
+<li>每一种算法都会有很多不同的垃圾回收器去实现，在实际使用中，根据自己的业务特点做出选择就好</li>
+</ul>
+<p>补充：卡表（《实战java虚拟机》）</p>
+<p><img src="/lhj/2019/04/09/JVM垃圾回收算法/866881-20170528160033438-1892837901.png" alt=""></p>
+
+
+
+            <!-- Pager -->
+            <ul class="pager">
+                
+                
+                <li class="next">
+                    <a href="/lhj/2019/04/09/事务的隔离级别/">Next Post &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4><i class="fa fa-bookmark"></i> Catalog</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; keep moving on 2019
+                    <br>
+                    Theme by <a href="http://beantech.org/">Bean Tech</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://1006400320.github.io/lhj">keep moving on</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/lhj/js/script.js"></script>
+
+
+
+
+</body>
+</html>
