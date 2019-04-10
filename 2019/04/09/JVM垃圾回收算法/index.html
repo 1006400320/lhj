@@ -181,7 +181,7 @@
 <ul>
 <li>在该情况下，内存规整，对象的内存分配采用”指针碰撞法”，见《<a href="http://www.cnblogs.com/java-zhao/p/5180492.html" target="_blank" rel="noopener">第二章 JVM内存分配</a>》</li>
 </ul>
-<h4 id="1-3、复制算法"><a href="#1-3、复制算法" class="headerlink" title="1.3、复制算法"></a><strong>1.3、复制算法</strong></h4><p><img src="https://images2015.cnblogs.com/blog/866881/201602/866881-20160205143501116-1245719379.jpg" alt="img"></p>
+<h4 id="1-3、复制算法"><a href="#1-3、复制算法" class="headerlink" title="1.3、复制算法"></a><strong>1.3、复制算法</strong></h4><p><img src="/lhj/2019/04/09/JVM垃圾回收算法/866881-20160205143501116-1245719379.jpg" alt=""></p>
 <p><strong>原理：</strong></p>
 <ul>
 <li>从根集合节点进行扫描，标记出所有的存活对象，并将这些存活的对象复制到一块儿新的内存（图中下边的那一块儿内存）上去，之后将原来的那一块儿内存（图中上边的那一块儿内存）全部回收掉</li>
@@ -208,7 +208,7 @@
 <p>3）之后产生的对象继续分配在Eden区，当Eden区又满了或放不下了，这时候将会把Eden区和from区存活下来的对象复制到to区（同理，如果存活下来的对象to区都放不下，则这些存活下来的对象全部进入年老代），之后回收掉Eden区和from区的所有内存；</p>
 <p>4）如上这样，会有很多对象会被复制很多次（每复制一次，对象的年龄就+1），默认情况下，当对象被复制了15次（这个次数可以通过：-XX:MaxTenuringThreshold来配置），就会进入年老代了</p>
 <p>5）当年老代满了或者存放不下将要进入年老代的存活对象的时候，就会发生一次Full GC（这个是我们最需要减少的，因为耗时很严重）</p>
-<h3 id="3、总结："><a href="#3、总结：" class="headerlink" title="3、总结："></a><strong>3、总结：</strong></h3><ul>
+<h3 id="3、总结"><a href="#3、总结" class="headerlink" title="3、总结"></a><strong>3、总结</strong></h3><ul>
 <li><strong>年轻代：复制算法</strong></li>
 <li><strong>老年代：标记-清除或标记-整理</strong>（前者相较于后者会快一些但是会产生内存碎片，后者相较于前者不会产生内存碎片但是由于要移动存活对象所以会慢一些）</li>
 <li>以上这种年轻代与老年代分别采用不同回收算法的方式称为”<strong>分代收集算法</strong>“，这也是当下企业使用的一种方式</li>
