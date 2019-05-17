@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/image/favicon.jpg">
+    
+
+    <title>
+        
+        linux常用命令 |
+        
+        keep moving on
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/lhj/css/style.css">
+    <link rel="stylesheet" href="/lhj/css/home.css">
+    <link rel="stylesheet" href="/lhj/css/highlight.css">
+    <link rel="stylesheet" href="/lhj/css/toc.css">
+
+
+</head>
+<body></body>
+</html>
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+     background-image: url('/lhj/image/header.jpg'); 
+	/*
+	 background-image: url('');
+        /*post*/
+    
+	*/
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/lhj/tags/linux" title="linux">linux</a>
+                        
+                    </div>
+                    <h1>linux常用命令</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                            Posted by linhuanjie on
+                        2019-05-17
+                        </span>
+                </div>
+                <!-- 非文章 -->
+                
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/lhj/">keep moving on</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <!-- Post container -->
+
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+
+            <ul>
+<li><p>查看linux版本：</p>
+<ul>
+<li>lsb_release -a</li>
+<li>cat /etc/issue    </li>
+<li>cat /etc/redhat-release (只适合Redhat系的Linux)</li>
+</ul>
+</li>
+<li><p>查看Linux内核版本：uname -a</p>
+</li>
+<li><p>查看Linux系统位数：file /sbin/init</p>
+</li>
+</ul>
+<ul>
+<li><p>centos6关闭防火墙</p>
+<ul>
+<li>service iptables status     –查看防火墙状态</li>
+<li>servcie iptables stop     –临时关闭防火墙</li>
+<li>chkconfig iptables off      –永久关闭防火墙</li>
+<li>chkconfig –list iptables    –查看防火墙状态</li>
+</ul>
+</li>
+<li><p>查看SSH是否安装：rpm -qa | grep ssh</p>
+<ul>
+<li>注：若没安装SSH则可输入：yum install openssh-server 安装。</li>
+</ul>
+</li>
+<li><p>查看SSH服务是否正在运行：/etc/init.d/sshd status</p>
+</li>
+</ul>
+<ul>
+<li>ssh免密码登录：<ul>
+<li>ssh-keygen -t rsa  //一路回车就好</li>
+<li>ssh-copy-id -i ~/.ssh/id_rsa.pub 192.168.62.128</li>
+</ul>
+</li>
+<li>查看端口使用情况：<ul>
+<li>sudo netstat -anp | grep 8080<ul>
+<li>lsof -i:8080</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>授权限： chmod -R 777  /xxx</p>
+</li>
+<li><p>切换账号：su xx</p>
+</li>
+<li><p>分配权限给子用户：sudo</p>
+</li>
+<li>复制、移动与删除：cp，mv，rm (rm -rf aa.txt)</li>
+<li><p>挂载(卸载)：mount(unmount)</p>
+</li>
+<li><p>解压：</p>
+<ul>
+<li>tar -zxvf file.tar.gz</li>
+<li>-z 通过gzip指令处理备份文件</li>
+<li>-x 从备份文件中还原文件</li>
+<li>-v 显示指令执行过程</li>
+<li>-f 指定备份文件</li>
+<li></li>
+</ul>
+</li>
+<li><p>系统服务管理：</p>
+<ul>
+<li>service –status-all</li>
+<li>service  sshd status</li>
+<li>service  sshd stop</li>
+<li>service  sshd start</li>
+<li>service  sshd restart</li>
+</ul>
+</li>
+<li><p>开机自启：</p>
+<ul>
+<li>chkconfig httpd on  ##让httpd服务开机自启</li>
+<li>chkconfig httpd off  ##让httpd服务开机不要自启</li>
+</ul>
+</li>
+<li><p>shell中的特殊变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">0 shell或shell脚本的名字 </span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">* 以一对双引号给出参数列表</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">@  将各个参数分别加双引号返回</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"><span class="comment"># 参数的个数</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">_ 代表上一个命令的最后一个参数</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">$ 代表所在命令的PID</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">! 代表最后执行的后台命令的PID</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">?代表上一个命令执行后的退出状态</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看磁盘空间使用情况：df -h</p>
+</li>
+<li><p>统计文件大小：du -sh (-s表示汇总，-h表示人性化显示)</p>
+<ul>
+<li>du -sh *|grep [MG]|sort -nr 　[筛选出大小为MB和GB级别的目录和文件，并降序排序]</li>
+</ul>
+</li>
+<li><p>查看网络状态： netstat -lntup</p>
+</li>
+<li><p>查看进程： ps -ef  | grep  xxx</p>
+</li>
+<li><p>跨服务器复制： </p>
+<ul>
+<li>scp xxx.tar.gz hostname:  /xxx/xxx（scp  文件名   服务器ming/ip地址   复制到该服务器的路径）</li>
+</ul>
+</li>
+<li><p>集群ssh无密匙登录： ssh-keygen -t rsa</p>
+</li>
+<li><p>修改hostname: 　vim /etc/sysconfig/network</p>
+</li>
+<li><p>修改hosts:    vim /etc/hosts</p>
+</li>
+<li><p>find:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find   path   -option   [   -print ]   [ -exec   -ok   command ]   &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+<p>-mount, -xdev : 只检查和指定目录在同一个文件系统下的文件，避免列出其它文件系统中的文件</p>
+<p>-amin n : 在过去 n 分钟内被读取过</p>
+<p>-anewer file : 比文件 file 更晚被读取过的文件</p>
+<p>-atime n : 在过去n天内被读取过的文件</p>
+<p>-cmin n : 在过去 n 分钟内被修改过</p>
+<p>-cnewer file :比文件 file 更新的文件</p>
+<p>-ctime n : 在过去n天内被修改过的文件</p>
+<p>-empty : 空的文件-gid n or -group name : gid 是 n 或是 group 名称是 name</p>
+<p>-ipath p, -path p : 路径名称符合 p 的文件，ipath 会忽略大小写</p>
+<p>-name name, -iname name : 文件名称符合 name 的文件。iname 会忽略大小写</p>
+<p>-size n : 文件大小 是 n 单位，b 代表 512 位元组的区块，c 表示字元数，k 表示 kilo bytes，w 是二个位元组。</p>
+<p>-type c : 文件类型是 c 的文件。</p>
+<p>d: 目录</p>
+<p>c: 字型装置文件</p>
+<p>b: 区块装置文件</p>
+<p>p: 具名贮列</p>
+<p>f: 一般文件</p>
+<p>l: 符号连结</p>
+<p>s: socket</p>
+<p>-pid n : process id 是 n 的文件</p>
+<p>你可以使用 ( ) 将运算式分隔，并使用下列运算。</p>
+<p>exp1 -and exp2</p>
+<p>! expr</p>
+<p>-not expr</p>
+<p>exp1 -or exp2</p>
+<p>exp1, exp2</p>
+</li>
+</ul>
+<p>举个栗子:</p>
+<p>将目前目录及其子目录下所有延伸档名是 c 的文件列出来。    </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> find . -name <span class="string">"*.c"</span></span></span><br></pre></td></tr></table></figure>
+<p>将目前目录及其子目录下所有最近 20 天内更新过的文件列出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> find . -ctime -20</span></span><br></pre></td></tr></table></figure>
+<p>查找/var/log目录中更改时间在7日以前的普通文件，并在删除之前询问它们：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> find /var/<span class="built_in">log</span> -<span class="built_in">type</span> f -mtime +7 -ok rm &#123;&#125; \;</span></span><br></pre></td></tr></table></figure>
+<p>查找前目录中文件属主具有读、写权限，并且文件所属组的用户和其他用户具有读权限的文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> find . -<span class="built_in">type</span> f -perm 644 -<span class="built_in">exec</span> ls -l &#123;&#125; \;</span></span><br></pre></td></tr></table></figure>
+<p>为了查找系统中所有文件长度为0的普通文件，并列出它们的完整路径：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> find / -<span class="built_in">type</span> f -size 0 -<span class="built_in">exec</span> ls -l &#123;&#125; \;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>管道查询：grep</li>
+</ul>
+
+
+
+            <!-- Pager -->
+            <ul class="pager">
+                
+                
+                <li class="next">
+                    <a href="/lhj/2019/05/07/阿里巴巴Java开发手册中的DO、DTO、BO、AO、VO、POJO定义/">Next Post &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4><i class="fa fa-bookmark"></i> Catalog</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; keep moving on 2019
+                    <br>
+                    Theme by <a href="http://beantech.org/">Bean Tech</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://1006400320.github.io/lhj">keep moving on</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/lhj/js/script.js"></script>
+
+
+
+
+</body>
+</html>
