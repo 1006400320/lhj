@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/image/favicon.jpg">
+    
+
+    <title>
+        
+        ActiveMQ详细入门使用教程 |
+        
+        keep moving on
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/lhj/css/style.css">
+    <link rel="stylesheet" href="/lhj/css/home.css">
+    <link rel="stylesheet" href="/lhj/css/highlight.css">
+    <link rel="stylesheet" href="/lhj/css/toc.css">
+
+
+</head>
+<body></body>
+</html>
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+     background-image: url('/lhj/image/header.jpg'); 
+	/*
+	 background-image: url('');
+        /*post*/
+    
+	*/
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/lhj/tags/消息队列" title="消息队列">消息队列</a>
+                        
+                    </div>
+                    <h1>ActiveMQ详细入门使用教程</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                            Posted by linhuanjie on
+                        2019-05-19
+                        </span>
+                </div>
+                <!-- 非文章 -->
+                
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/lhj/">keep moving on</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <!-- Post container -->
+
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+
+            <blockquote>
+<p>作者： <a href="https://me.csdn.net/liuyuanq123" target="_blank" rel="noopener">JHON_YUAN</a></p>
+<p>原文：<a href="https://blog.csdn.net/liuyuanq123/article/details/79109218" target="_blank" rel="noopener">ActiveMQ详细入门使用教程</a></p>
+</blockquote>
+<p>### </p>
+<h2 id="ActiveMQ介绍"><a href="#ActiveMQ介绍" class="headerlink" title="ActiveMQ介绍"></a>ActiveMQ介绍</h2><p>​     MQ是消息中间件，是一种在分布式系统中应用程序借以传递消息的媒介，常用的有<strong>ActiveMQ</strong>，<strong>RabbitMQ</strong>，<strong>kafka</strong>。ActiveMQ是Apache下的开源项目，完全支持JMS1.1和J2EE1.4规范的JMS Provider实现。<br>特点：<br>1、支持多种语言编写客户端<br>2、对spring的支持，很容易和spring整合<br>3、支持多种传输协议：TCP,SSL,NIO,UDP等<br>4、支持AJAX </p>
+<p>消息形式：<br>1、点对点（queue）<br>2、一对多（topic） </p>
+<h2 id="ActiveMQ安装"><a href="#ActiveMQ安装" class="headerlink" title="ActiveMQ安装"></a>ActiveMQ安装</h2><p><img src="/lhj/2019/05/19/ActiveMQ详细入门使用教程/20180119174933792.png" alt=""></p>
+<p><img src="/lhj/2019/05/19/ActiveMQ详细入门使用教程/20180122150647064.png" alt=""></p>
+<p>然后点击queues可以看到现在没有一条消息：</p>
+<p><img src="/lhj/2019/05/19/ActiveMQ详细入门使用教程/20180122150930397.png" alt=""></p>
+<h2 id="ActiveMQ测试"><a href="#ActiveMQ测试" class="headerlink" title="ActiveMQ测试"></a>ActiveMQ测试</h2><p>编写一个测试类对ActiveMQ进行测试，首先得向pom文件中添加ActiveMQ相关的jar包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.activemq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line">       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-all<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">compile</span> <span class="keyword">group</span>: <span class="string">'org.apache.activemq'</span>, name: <span class="string">'activemq-all'</span>, version: <span class="string">'5.11.1'</span></span><br></pre></td></tr></table></figure>
+<h3 id="测试点对点（queue）"><a href="#测试点对点（queue）" class="headerlink" title="测试点对点（queue）"></a>测试点对点（queue）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.linhuanjie.activemq;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.activemq.ActiveMQConnectionFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.jms.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: linhuanjie</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 点对点（queue）</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> : 2019-05-19 13:17</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@email</span>: lhuanjie@qq.com</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestQueueActiveMQ</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            testMQProducerQueue();</span><br><span class="line">            TestMQConsumerQueue();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * ActiveMQ 生产者</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testMQProducerQueue</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">//1、创建工厂连接对象，需要制定ip和端口号</span></span><br><span class="line">        ConnectionFactory connectionFactory = <span class="keyword">new</span> ActiveMQConnectionFactory();</span><br><span class="line">        <span class="comment">//2、使用连接工厂创建一个连接对象</span></span><br><span class="line">        Connection connection = connectionFactory.createConnection();</span><br><span class="line">        <span class="comment">//3、开启连接</span></span><br><span class="line">        connection.start();</span><br><span class="line">        <span class="comment">//4、使用连接对象创建会话（session）对象</span></span><br><span class="line">        Session session = connection.createSession(<span class="keyword">false</span>, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line">        <span class="comment">//5、使用会话对象创建目标对象，包含queue和topic（一对一和一对多）</span></span><br><span class="line">        Queue queue = session.createQueue(<span class="string">"test-queue"</span>);</span><br><span class="line">        <span class="comment">//6、使用会话对象创建生产者对象</span></span><br><span class="line">        MessageProducer producer = session.createProducer(queue);</span><br><span class="line">        <span class="comment">//7、使用会话对象创建一个消息对象</span></span><br><span class="line">        TextMessage textMessage = session.createTextMessage(<span class="string">"hello!test-queue"</span>);</span><br><span class="line">        <span class="comment">//8、发送消息</span></span><br><span class="line">        producer.send(textMessage);</span><br><span class="line">        System.out.println(<span class="string">"send_queue:"</span>+textMessage.getText());</span><br><span class="line">        <span class="comment">//9、关闭资源</span></span><br><span class="line">        producer.close();</span><br><span class="line">        session.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * ActiveMQ 消费者</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">TestMQConsumerQueue</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">//1、创建工厂连接对象，需要制定ip和端口号</span></span><br><span class="line">        ConnectionFactory connectionFactory = <span class="keyword">new</span> ActiveMQConnectionFactory();</span><br><span class="line">        <span class="comment">//2、使用连接工厂创建一个连接对象</span></span><br><span class="line">        Connection connection = connectionFactory.createConnection();</span><br><span class="line">        <span class="comment">//3、开启连接</span></span><br><span class="line">        connection.start();</span><br><span class="line">        <span class="comment">//4、使用连接对象创建会话（session）对象</span></span><br><span class="line">        Session session = connection.createSession(<span class="keyword">false</span>, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line">        <span class="comment">//5、使用会话对象创建目标对象，包含queue和topic（一对一和一对多）</span></span><br><span class="line">        Queue queue = session.createQueue(<span class="string">"test-queue"</span>);</span><br><span class="line">        <span class="comment">//6、使用会话对象创建生产者对象</span></span><br><span class="line">        MessageConsumer consumer = session.createConsumer(queue);</span><br><span class="line">        <span class="comment">//7、向consumer对象中设置一个messageListener对象，用来接收消息</span></span><br><span class="line">        consumer.setMessageListener( message -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(message <span class="keyword">instanceof</span> TextMessage)&#123;</span><br><span class="line">                TextMessage textMessage = (TextMessage)message;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    System.out.println(<span class="string">"receive_queue:"</span>+textMessage.getText());</span><br><span class="line">                &#125; <span class="keyword">catch</span> (JMSException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">//8、程序等待接收用户消息</span></span><br><span class="line">        System.in.read();</span><br><span class="line">        <span class="comment">//9、关闭资源</span></span><br><span class="line">        consumer.close();</span><br><span class="line">        session.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>MQ管理后台： <a href="http://xxx_your_ip:8186/admin" target="_blank" rel="noopener">http://xxx_your_ip:8186/admin</a></p>
+<p>用户名：admin</p>
+<p>密码：admin</p>
+<p><img src="/lhj/2019/05/19/ActiveMQ详细入门使用教程/微信截图_20190519143239.png" alt=""></p>
+<p>控制台输出：</p>
+<p><img src="/lhj/2019/05/19/ActiveMQ详细入门使用教程/微信图片_20190519143138.png" alt=""></p>
+<h3 id="一对多（topic）"><a href="#一对多（topic）" class="headerlink" title="一对多（topic）"></a>一对多（topic）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.linhuanjie.activemq;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.activemq.ActiveMQConnectionFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.jms.*;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: linhuanjie</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 一对多（topic）</span></span><br><span class="line"><span class="comment"> * tips: 消费者先订阅，发布者再发布</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> : 2019-05-19 13:17</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@email</span>: lhuanjie@qq.com</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestTopicActiveMQ</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ExecutorService executorService = Executors.newFixedThreadPool(<span class="number">5</span>);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++) &#123;</span><br><span class="line">                executorService.execute(<span class="keyword">new</span> TestTopicActiveMQ());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * ActiveMQ 发布者</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMQProducerTopic</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//1、创建工厂连接对象，需要制定ip和端口号</span></span><br><span class="line">        ConnectionFactory connectionFactory = <span class="keyword">new</span> ActiveMQConnectionFactory();</span><br><span class="line">        <span class="comment">//2、使用连接工厂创建一个连接对象</span></span><br><span class="line">        Connection connection = connectionFactory.createConnection();</span><br><span class="line">        <span class="comment">//3、开启连接</span></span><br><span class="line">        connection.start();</span><br><span class="line">        <span class="comment">//4、使用连接对象创建会话（session）对象</span></span><br><span class="line">        Session session = connection.createSession(<span class="keyword">false</span>, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line">        <span class="comment">//5、使用会话对象创建目标对象，包含queue和topic（一对一和一对多）</span></span><br><span class="line">        Topic topic = session.createTopic(<span class="string">"test_topic"</span>);</span><br><span class="line">        <span class="comment">//6、使用会话对象创建生产者对象</span></span><br><span class="line">        MessageProducer producer = session.createProducer(topic);</span><br><span class="line">        <span class="comment">//7、使用会话对象创建一个消息对象</span></span><br><span class="line">        TextMessage textMessage = session.createTextMessage(<span class="string">"hello!test-topic"</span>);</span><br><span class="line">        <span class="comment">//8、发送消息</span></span><br><span class="line">        producer.send(textMessage);</span><br><span class="line">        System.out.println(<span class="string">"send_topic:"</span> + textMessage.getText());</span><br><span class="line">        <span class="comment">//9、关闭资源</span></span><br><span class="line">        producer.close();</span><br><span class="line">        session.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * ActiveMQ 消费者</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMQConsumerTopic</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//1、创建工厂连接对象，需要制定ip和端口号</span></span><br><span class="line">        ConnectionFactory connectionFactory = <span class="keyword">new</span> ActiveMQConnectionFactory();</span><br><span class="line">        <span class="comment">//2、使用连接工厂创建一个连接对象</span></span><br><span class="line">        Connection connection = connectionFactory.createConnection();</span><br><span class="line">        <span class="comment">//3、开启连接</span></span><br><span class="line">        connection.start();</span><br><span class="line">        <span class="comment">//4、使用连接对象创建会话（session）对象</span></span><br><span class="line">        Session session = connection.createSession(<span class="keyword">false</span>, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line">        <span class="comment">//5、使用会话对象创建目标对象，包含queue和topic（一对一和一对多）</span></span><br><span class="line">        Topic topic = session.createTopic(<span class="string">"test_topic"</span>);</span><br><span class="line">        <span class="comment">//6、使用会话对象创建生产者对象</span></span><br><span class="line">        MessageConsumer consumer = session.createConsumer(topic);</span><br><span class="line">        <span class="comment">//7、向consumer对象中设置一个messageListener对象，用来接收消息</span></span><br><span class="line">        consumer.setMessageListener(message -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (message <span class="keyword">instanceof</span> TextMessage) &#123;</span><br><span class="line">                TextMessage textMessage = (TextMessage) message;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    System.out.println(<span class="string">"receive_topic:"</span> + textMessage.getText());</span><br><span class="line">                &#125; <span class="keyword">catch</span> (JMSException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">//8、程序等待接收用户消息</span></span><br><span class="line">        System.out.println(<span class="string">"开始订阅..."</span>);</span><br><span class="line">        System.in.read();</span><br><span class="line">        <span class="comment">//9、关闭资源</span></span><br><span class="line">        consumer.close();</span><br><span class="line">        session.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> num = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">if</span> (num % <span class="number">2</span> == <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>.testMQProducerTopic();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.testMQConsumerTopic();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里使用了<strong>线程池</strong>与<strong>随机数</strong>，主要是为了实现一个类进行发布和订阅。</p>
+<p>MQ管理后台</p>
+<p><img src="/lhj/2019/05/19/ActiveMQ详细入门使用教程/topic一对多.png" alt=""></p>
+<p>后台输出：</p>
+<p><img src="/lhj/2019/05/19/ActiveMQ详细入门使用教程/微信截图_20190521214634.png" alt=""></p>
+
+
+
+            <!-- Pager -->
+            <ul class="pager">
+                
+                
+                <li class="next">
+                    <a href="/lhj/2019/05/17/linux常用命令/">Next Post &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4><i class="fa fa-bookmark"></i> Catalog</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; keep moving on 2019
+                    <br>
+                    Theme by <a href="http://beantech.org/">Bean Tech</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://1006400320.github.io/lhj">keep moving on</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/lhj/js/script.js"></script>
+
+
+
+
+</body>
+</html>
