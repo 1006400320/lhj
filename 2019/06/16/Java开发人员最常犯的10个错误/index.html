@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/image/favicon.jpg">
+    
+
+    <title>
+        
+        Java开发人员最常犯的10个错误 |
+        
+        keep moving on
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/lhj/css/style.css">
+    <link rel="stylesheet" href="/lhj/css/home.css">
+    <link rel="stylesheet" href="/lhj/css/highlight.css">
+    <link rel="stylesheet" href="/lhj/css/toc.css">
+
+
+</head>
+<body></body>
+</html>
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+     background-image: url('/lhj/image/header.jpg'); 
+	/*
+	 background-image: url('');
+        /*post*/
+    
+	*/
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/lhj/tags/java" title="java">java</a>
+                        
+                    </div>
+                    <h1>Java开发人员最常犯的10个错误</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                            Posted by linhuanjie on
+                        2019-06-16
+                        </span>
+                </div>
+                <!-- 非文章 -->
+                
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/lhj/">keep moving on</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <!-- Post container -->
+
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+
+            <blockquote>
+<p>作者：<a href="https://home.cnblogs.com/u/chenpi/" target="_blank" rel="noopener">风一样的码农</a></p>
+<p>原文：<a href="https://www.cnblogs.com/chenpi/p/5508949.html" target="_blank" rel="noopener">Java开发人员最常犯的10个错误</a></p>
+</blockquote>
+<h1 id="一、Array转ArrayList"><a href="#一、Array转ArrayList" class="headerlink" title="一、Array转ArrayList"></a>一、Array转ArrayList</h1><p>当需要把Array转成ArrayList的时候，开发人员经常这样做：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(arr);</span><br></pre></td></tr></table></figure>
+<p>Arrays.asList()会返回一个ArrayList，但是要特别注意，这个ArrayList是Arrays类的静态内部类，并不是java.util.ArrayList类。java.util.Arrays.ArrayList类实现了set()， get()，contains()方法，但是并没有实现增加元素的方法（事实上是可以调用add方法，但是没有具体实现，仅仅抛出UnsupportedOperationException异常），因此它的大小也是固定不变的。如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    String[] strArr = &#123;<span class="string">"QAQ"</span>,<span class="string">"TuT"</span>,<span class="string">"WAW"</span>,<span class="string">"QuQ"</span>&#125;;</span><br><span class="line">    List&lt;String&gt; strings = Arrays.asList(strArr);</span><br><span class="line">    strings.add(<span class="string">"qaq"</span>);</span><br><span class="line">    <span class="keyword">for</span> (String string : strings) &#123;</span><br><span class="line">        System.out.println(<span class="string">"string = "</span> + string);</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>会有以下报错：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread <span class="string">"main"</span> java.lang.UnsupportedOperationException</span><br><span class="line">	at java.util.AbstractList.add(AbstractList.java:<span class="number">148</span>)</span><br><span class="line">	at java.util.AbstractList.add(AbstractList.java:<span class="number">108</span>)</span><br><span class="line">	at com.linhuanjie.demo.TestDemo.main(TestDemo.java:<span class="number">19</span>)</span><br><span class="line"></span><br><span class="line">Process finished with exit code <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>为了创建一个真正的java.util.ArrayList，你应该这样做：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; arrayList = <span class="keyword">new</span> ArrayList&lt;String&gt;(Arrays.asList(arr));</span><br></pre></td></tr></table></figure>
+<p>ArrayList的构造方法可以接收一个Collection类型，而java.util.Arrays.ArrayList已经实现了该接口。</p>
+<p>但是查看源码可知带Collection参数的ArrayList构造方法内部代码并不高效，下面是更高效的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String[] strArr = &#123;<span class="string">"QAQ"</span>,<span class="string">"TuT"</span>,<span class="string">"WAW"</span>,<span class="string">"QuQ"</span>&#125;;</span><br><span class="line">        ArrayList&lt;String&gt; arrayList = <span class="keyword">new</span> ArrayList();</span><br><span class="line"></span><br><span class="line">        Collections.addAll(arrayList,strArr);</span><br><span class="line">        arrayList.add(<span class="string">"qaq"</span>);</span><br><span class="line">        <span class="keyword">for</span> (String s : arrayList) &#123;</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考文章:<a href="https://blog.csdn.net/tbx709/article/details/78671248" target="_blank" rel="noopener">关于将数组转为list的方法Arrays.asList(arr)的缺陷</a></p>
+<h1 id="二、判断一个数组是否包含某个值"><a href="#二、判断一个数组是否包含某个值" class="headerlink" title="二、判断一个数组是否包含某个值"></a>二、判断一个数组是否包含某个值</h1><p>开发人员经常这样做：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;String&gt;(Arrays.asList(arr));</span><br><span class="line"><span class="keyword">return</span> set.contains(targetValue);</span><br></pre></td></tr></table></figure>
+<p>以上代码可以正常工作，但是没有必要将其转换成set集合，将一个List转成Set需要额外的时间，其实我们可以简单的使用如下方法即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.asList(arr).contains(targetValue);</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(String s: arr)&#123;</span><br><span class="line">    <span class="keyword">if</span>(s.equals(targetValue))</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+<p>第一种方法可读性更强。</p>
+<h1 id="三、在循环内部删除List中的一个元素"><a href="#三、在循环内部删除List中的一个元素" class="headerlink" title="三、在循环内部删除List中的一个元素"></a>三、在循环内部删除List中的一个元素</h1><p>考虑如下代码，在迭代期间删除元素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;(Arrays.asList(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>,<span class="string">"d"</span>));</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    list.remove(i);</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+<p>结果打印：<br>[b, d]</p>
+<p>在上面这个方法中有一系列的问题，当一个元素被删除的时候，list大小减小，然后原先索引指向了其它元素。所以如果你想在循环里通过索引来删除多个元素，将不会正确工作。</p>
+<p>你也许知道使用迭代器是在循环里删除元素的正确方式，或许你也知道foreach循环跟迭代器很类似，但事实情况却不是这样，如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;(Arrays.asList(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>,<span class="string">"d"</span>));</span><br><span class="line"><span class="keyword">for</span> (String s : list) &#123;</span><br><span class="line">    <span class="keyword">if</span> (s.equals(<span class="string">"a"</span>))&#123;</span><br><span class="line">        list.remove(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将抛出<strong>ConcurrentModificationException</strong>异常。</p>
+<p>然而接下来的代码却是OK的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;(Arrays.asList(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>,<span class="string">"d"</span>));</span><br><span class="line">Iterator&lt;String&gt; iter = list.iterator();</span><br><span class="line"><span class="keyword">while</span> (iter.hasNext()) &#123;</span><br><span class="line">    String s = iter.next();</span><br><span class="line">    <span class="keyword">if</span> (s.equals(<span class="string">"a"</span>)) &#123;</span><br><span class="line">        iter.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>next()方法需要在remove()方法之前被调用，在foreach循环里，编译器会在删除元素操作后调用next方法，这导致了ConcurrentModificationException异常。更多详细信息，可以查看ArrayList.iterator()的源码。</p>
+<h1 id="四、HashTable与HashMap"><a href="#四、HashTable与HashMap" class="headerlink" title="四、HashTable与HashMap"></a>四、HashTable与HashMap</h1><p>从算法的角度来讲，HashTable是一种数据结构名称。但是在Java中，这种数据结构叫做HashMap。HashTable与HashMap的一个主要的区别是HashTable是同步的，所以，通常来说，你会使用HashMap，而不是Hashtable。</p>
+<p>更多信息：<a href="http://www.cnblogs.com/chenpi/p/5505705.html" target="_blank" rel="noopener">HashMap vs. TreeMap vs. Hashtable vs. LinkedHashMap Top 10 questions about Map</a></p>
+<h1 id="五、使用集合原始类型（raw-type）"><a href="#五、使用集合原始类型（raw-type）" class="headerlink" title="五、使用集合原始类型（raw type）"></a>五、使用集合原始类型（raw type）</h1><p>在Java中，原始类型（raw type）和无界通配符类型很容易让人混淆。举个Set的例子，Set是原始类型，而Set&lt;?&gt;是无界通配符类型。</p>
+<p>请看如下代码，add方法使用了一个原始类型的List作为入参：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(List list, Object o)</span></span>&#123;</span><br><span class="line">    list.add(o);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">    add(list, <span class="number">10</span>);</span><br><span class="line">    String s = list.get(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行以上代码将会抛出异常：</p>
+<p>Exception in thread “main” java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String<br>at …</p>
+<p>使用原始类型集合非常危险，因为它跳过了泛型类型检查，是不安全的。另外，<strong>Set</strong>, <strong>Set&lt;?&gt;</strong>, 和<strong>Set<object></object></strong>这三个有很大的不同，具体请看：<a href="http://www.cnblogs.com/chenpi/p/5508177.html" target="_blank" rel="noopener">类型擦除</a>和<a href="http://www.programcreek.com/2013/12/raw-type-set-vs-unbounded-wildcard-set/" target="_blank" rel="noopener">Raw type vs. Unbounded wildcard。</a></p>
+<h1 id="六、访问级别"><a href="#六、访问级别" class="headerlink" title="六、访问级别"></a>六、访问级别</h1><p>开发人员经常使用public修饰类字段，虽然这很容易让别人直接通过引用获取该字段的值，但这是一个不好的设计。根据经验，应该尽可能的降低成员属性的访问级别。</p>
+<p>相关阅读：<a href="http://www.cnblogs.com/chenpi/p/5488202.html" target="_blank" rel="noopener">public, default, protected, and private</a></p>
+<h1 id="七、ArrayList和LinkedList"><a href="#七、ArrayList和LinkedList" class="headerlink" title="七、ArrayList和LinkedList"></a>七、ArrayList和LinkedList</h1><p>为什么开发人员经常使用ArrayList和LinkedList，却不知道他们之间的区别，因为它们看起来很像。然而它们之间有着巨大的性能差异。简单的说，如果有大量的增加删除操作并且没有很多的随机访问元素的操作，应该首选LinkedList。</p>
+<p>相关阅读：<a href="http://www.cnblogs.com/chenpi/p/5505375.html" target="_blank" rel="noopener">ArrayList vs. LinkedList</a></p>
+<h1 id="八、可变与不可变"><a href="#八、可变与不可变" class="headerlink" title="八、可变与不可变"></a>八、可变与不可变</h1><p>不可变对象有很多优点，如简单、安全等。但是对于每个不同的值都需要一个单独的对象，太多的对象会引起大量垃圾回收，因此在选择可变与不可变的时候，需要有一个平衡。</p>
+<p>通常，可变对象用于避免产生大量的中间对象，一个经典的例子是大量字符串的拼接。如果你使用一个不可变对象，将会马上产生大量符合垃圾回收标准的对象，这浪费了CPU大量的时间和精力。使用可变对象是正确的解决方案（StringBuilder）；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String result=&quot;&quot;;</span><br><span class="line">for(String s: arr)&#123;</span><br><span class="line">    result = result + s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外，在有些其它情况下也是需要使用可变对象。例如往一个方法传入一个可变对象，然后收集多种结果，而不需要写太多的语法。另一个例子是排序和过滤：当然，你可以写一个方法来接收原始的集合，并且返回一个排好序的集合，但是那样对于大的集合就太浪费了。</p>
+<p>更多阅读：</p>
+<p><a href="http://www.cnblogs.com/chenpi/p/5504230.html" target="_blank" rel="noopener">Why String is Immutable??</a></p>
+<p><a href="http://stackoverflow.com/questions/23616211/why-we-need-mutable-classes" target="_blank" rel="noopener">Why we need mutable classes?</a></p>
+<h1 id="九、父类和子类的构造方法"><a href="#九、父类和子类的构造方法" class="headerlink" title="九、父类和子类的构造方法"></a>九、父类和子类的构造方法</h1><p><img src="/lhj/2019/06/16/Java开发人员最常犯的10个错误/879896-20160519153342685-982495525.jpg" alt="img"></p>
+<p>之所以出现这个编译错误，是因为父类的默认构造方法未定义。在Java中，如果一个类没有定义构造方法，编译器会默认插入一个无参数的构造方法；但是如果一个构造方法在父类中已定义，在这种情况，编译器是不会自动插入一个默认的无参构造方法，这正是以上demo的情况；</p>
+<p>对于子类来说，不管是无参构造方法还是有参构造方法，都会默认调用父类的无参构造方法；当编译器尝试在子类中往这两个构造方法插入super()方法时，因为父类没有一个默认的无参构造方法，所以编译器报错；</p>
+<p>要修复这个错误，很简单：</p>
+<p>1、在父类手动定义一个无参构造方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Super()&#123;</span><br><span class="line">    System.out.println(&quot;Super&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、移除父类中自定义的构造方法</p>
+<p>3、在子类中自己写上父类构造方法的调用；如super(value)；</p>
+<h1 id="十、“”还是构造方法"><a href="#十、“”还是构造方法" class="headerlink" title="十、“”还是构造方法"></a>十、“”还是构造方法</h1><p>有两种创建字符串的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//1. use double quotes</span><br><span class="line">String x = &quot;abc&quot;;</span><br><span class="line">//2. use constructor</span><br><span class="line">String y = new String(&quot;abc&quot;);</span><br></pre></td></tr></table></figure>
+<p>它们之间有什么区别呢？</p>
+<p>以下代码提供了一个快速回答：</p>
+<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String a = &quot;abcd&quot;;</span><br><span class="line">String b = &quot;abcd&quot;;</span><br><span class="line">System.out.println(a == b); // True</span><br><span class="line">System.out.println(a.equals(b)); // True</span><br><span class="line">String c = new String(&quot;abcd&quot;);</span><br><span class="line">String d = new String(&quot;abcd&quot;);</span><br><span class="line">System.out.println(c == d); // False</span><br><span class="line">System.out.println(c.equals(d)); // True</span><br></pre></td></tr></table></figure>
+<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
+<p>更多关于它们内存分配的信息，请参考<a href="http://www.programcreek.com/2014/03/create-java-string-by-double-quotes-vs-by-constructor/" target="_blank" rel="noopener">Create Java String Using ” ” or Constructor??</a></p>
+<h1 id="end"><a href="#end" class="headerlink" title="end"></a>end</h1><p>译文链接：<a href="http://www.programcreek.com/2014/05/top-10-mistakes-java-developers-make/" target="_blank" rel="noopener">http://www.programcreek.com/2014/05/top-10-mistakes-java-developers-make/</a></p>
+
+
+
+            <!-- Pager -->
+            <ul class="pager">
+                
+                
+                <li class="next">
+                    <a href="/lhj/2019/05/22/java中创建线程的四种方法以及区别/">Next Post &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4><i class="fa fa-bookmark"></i> Catalog</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; keep moving on 2019
+                    <br>
+                    Theme by <a href="http://beantech.org/">Bean Tech</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://1006400320.github.io/lhj">keep moving on</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/lhj/js/script.js"></script>
+
+
+
+
+</body>
+</html>
