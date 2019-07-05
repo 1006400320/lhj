@@ -131,70 +131,70 @@
             ">
 
             <p>原文：<a href="https://mp.weixin.qq.com/s?__biz=MzUxOTc4NjEyMw==&amp;mid=2247483986&amp;idx=1&amp;sn=07e7bc79e8544f90833aa8118dbe29fd&amp;chksm=f9f519b6ce8290a03ea949f4c9bebae55d2f3d847a3e25b3fcf6aadcbb75a1d5a7530e7ff942&amp;mpshare=1&amp;scene=2&amp;srcid=&amp;from=timeline&amp;key=4ec74a34b449763ddd70557494a017b26bb08a3e05199d2bb9cb859ad2866c992ecda7fdc632ef1bf5efc6c076ba8ac4d7d8856679bfc1c63677a0e0d7d372410f160ea18cc00358166452fe3b208870&amp;ascene=14&amp;uin=MjQ1MzY1NzgxNw%3D%3D&amp;devicetype=Windows+10&amp;version=62060739&amp;lang=zh_CN&amp;pass_ticket=f0%2BaQRpzY2RXoDEVQNgXxCwGgVkTpJ%2BkBJRtUdtleYpcYgsS%2FTfuLmW1zYukoqB6" target="_blank" rel="noopener">工作中 99% 能用到的 Git 命令</a></p>
-<h1 id="分支操作"><a href="#分支操作" class="headerlink" title="分支操作"></a>分支操作</h1><ol>
-<li>git branch 创建分支</li>
-<li>git branch -b 创建并切换到新建的分支上</li>
-<li>git checkout 切换分支</li>
-<li>git branch 查看分支列表</li>
-<li>git branch -v 查看所有分支的最后一次操作</li>
-<li>git branch -vv 查看当前分支</li>
-<li>git brabch -b 分支名 origin/分支名 创建远程分支到本地</li>
-<li>git branch –merged 查看别的分支和当前分支合并过的分支</li>
-<li>git branch –no-merged 查看未与当前分支合并的分支</li>
-<li>git branch -d 分支名 删除本地分支</li>
-<li>git branch -D 分支名 强行删除分支</li>
-<li>git branch origin :分支名 删除远处仓库分支</li>
-<li>git merge 分支名 合并分支到当前分支上</li>
+<h2 id="分支操作"><a href="#分支操作" class="headerlink" title="分支操作"></a>分支操作</h2><ol>
+<li><code>git branch</code> 创建分支</li>
+<li><code>git branch -b</code> 创建并切换到新建的分支上</li>
+<li><code>git checkout 分支</code> 切换分支</li>
+<li><code>git branch</code> 查看分支列表</li>
+<li><code>git branch -v</code> 查看所有分支的最后一次操作</li>
+<li><code>git branch -vv</code> 查看当前分支</li>
+<li><code>git brabch -b 分支名 origin/分支名</code> 创建远程分支到本地</li>
+<li><code>git branch --merged</code> 查看别的分支和当前分支合并过的分支</li>
+<li><code>git branch --no-merged</code> 查看未与当前分支合并的分支cc</li>
+<li><code>git branch -d 分支名</code> 删除本地分支</li>
+<li><code>git branch -D 分支名</code> 强行删除分支</li>
+<li><code>git branch origin :分支名</code> 删除远处仓库分支</li>
+<li><code>git merge 分支名</code> 合并分支到当前分支上</li>
 </ol>
-<h1 id="暂存操作"><a href="#暂存操作" class="headerlink" title="暂存操作"></a>暂存操作</h1><ol>
-<li>git stash 暂存当前修改</li>
-<li>git stash apply 恢复最近的一次暂存</li>
-<li>git stash pop 恢复暂存并删除暂存记录</li>
-<li>git stash list 查看暂存列表</li>
-<li>git stash drop 暂存名(例：stash@{0}) 移除某次暂存</li>
-<li>git stash clear 清除暂存</li>
+<h2 id="暂存操作"><a href="#暂存操作" class="headerlink" title="暂存操作"></a>暂存操作</h2><ol>
+<li><code>git stash</code> 暂存当前修改</li>
+<li><code>git stash apply</code> 恢复最近的一次暂存</li>
+<li><code>git stash pop</code>恢复暂存并删除暂存记录</li>
+<li><code>git stash list</code> 查看暂存列表</li>
+<li><code>git stash drop暂存名</code>(例：stash@{0}) 移除某次暂存</li>
+<li><code>git stash clear</code> 清除暂存</li>
 </ol>
-<h1 id="回退操作"><a href="#回退操作" class="headerlink" title="回退操作"></a>回退操作</h1><ol>
-<li>git reset –hard HEAD^ 回退到上一个版本</li>
-<li>git reset –hard ahdhs1(commit_id) 回退到某个版本</li>
-<li>git checkout – file撤销修改的文件(如果文件加入到了暂存区，则回退到暂存区的，如果文件加入到了版本库，则还原至加入版本库之后的状态)</li>
-<li>git reset HEAD file 撤回暂存区的文件修改到工作区</li>
+<h2 id="回退操作"><a href="#回退操作" class="headerlink" title="回退操作"></a>回退操作</h2><ol>
+<li><code>git reset - -hard HEAD^</code> 回退到上一个版本</li>
+<li><code>git reset --hard ahdhs1(commit_id)</code>回退到某个版本</li>
+<li><code>git checkout -- file</code>撤销修改的文件(如果文件加入到了暂存区，则回退到暂存区的，如果文件加入到了版本库，则还原至加入版本库之后的状态)</li>
+<li><code>git reset HEAD file</code> 撤回暂存区的文件修改到工作区</li>
 </ol>
-<h1 id="标签操作"><a href="#标签操作" class="headerlink" title="标签操作"></a>标签操作</h1><ol>
-<li>git tag 标签名 添加标签(默认对当前版本)</li>
-<li>git tag 标签名 commit_id 对某一提交记录打标签</li>
-<li>git tag -a 标签名 -m ‘描述’ 创建新标签并增加备注</li>
-<li>git tag 列出所有标签列表</li>
-<li>git show 标签名 查看标签信息</li>
-<li>git tag -d 标签名 删除本地标签</li>
-<li>git push origin 标签名 推送标签到远程仓库</li>
-<li>git push origin –tags 推送所有标签到远程仓库</li>
-<li>git push origin :refs/tags/标签名 从远程仓库中删除标签</li>
+<h2 id="标签操作"><a href="#标签操作" class="headerlink" title="标签操作"></a>标签操作</h2><ol>
+<li><code>git tag 标签名</code> 添加标签(默认对当前版本)</li>
+<li><code>git tag 标签名 commit_id</code> 对某一提交记录打标签</li>
+<li><code>git tag -a 标签名 -m &#39;描述&#39;</code> 创建新标签并增加备注</li>
+<li><code>git tag</code> 列出所有标签列表</li>
+<li><code>git show 标签名</code> 查看标签信息</li>
+<li><code>git tag -d 标签名</code> 删除本地标签</li>
+<li><code>git push origin 标签名</code> 推送标签到远程仓库</li>
+<li><code>git push origin --tags</code> 推送所有标签到远程仓库</li>
+<li><code>git push origin :refs/tags/标签名</code> 从远程仓库中删除标签</li>
 </ol>
-<h1 id="常规操作"><a href="#常规操作" class="headerlink" title="常规操作"></a>常规操作</h1><ol>
-<li>git push origin test 推送本地分支到远程仓库</li>
-<li>git rm -r –cached 文件/文件夹名字 取消文件被版本控制</li>
-<li>git reflog 获取执行过的命令</li>
-<li>git log –graph 查看分支合并图</li>
-<li>git merge –no-ff -m ‘合并描述’ 分支名 不使用Fast forward方式合并，采用这种方式合并可以看到合并记录</li>
-<li>git check-ignore -v 文件名 查看忽略规则</li>
-<li>git add -f 文件名 强制将文件提交</li>
+<h2 id="常规操作"><a href="#常规操作" class="headerlink" title="常规操作"></a>常规操作</h2><ol>
+<li><code>git push origin test</code> 推送本地分支到远程仓库</li>
+<li><code>git rm -r --cached 文件/文件夹名字</code> 取消文件被版本控制</li>
+<li><code>git reflog</code> 获取执行过的命令</li>
+<li><code>git log --graph</code> 查看分支合并图</li>
+<li><code>git merge --no-ff -m &#39;合并描述&#39; 分支名</code> 不使用Fast forward方式合并，采用这种方式合并可以看到合并记录</li>
+<li><code>git check-ignore -v 文件名</code> 查看忽略规则</li>
+<li><code>git add -f 文件名</code> 强制将文件提交</li>
 </ol>
 <h2 id="git创建项目仓库"><a href="#git创建项目仓库" class="headerlink" title="git创建项目仓库"></a>git创建项目仓库</h2><ol>
-<li>git init 初始化</li>
-<li>git remote add origin url 关联远程仓库</li>
-<li>git pull</li>
-<li>git fetch 获取远程仓库中所有的分支到本地</li>
+<li><code>git init</code> 初始化</li>
+<li><code>git remote add origin url</code> 关联远程仓库</li>
+<li><code>git pull</code> 将远程存储库中的更改合并到当前分支中</li>
+<li><code>git fetch</code> 获取远程仓库中所有的分支到本地</li>
 </ol>
 <h2 id="忽略已加入到版本库中的文件"><a href="#忽略已加入到版本库中的文件" class="headerlink" title="忽略已加入到版本库中的文件"></a>忽略已加入到版本库中的文件</h2><ol>
-<li>git update-index –assume-unchanged file 忽略单个文件</li>
-<li>git rm -r –cached 文件/文件夹名字 (. 忽略全部文件)</li>
+<li><code>git update-index --assume-unchanged file</code> 忽略单个文件</li>
+<li><code>git rm -r --cached 文件/文件夹名字</code> (. 忽略全部文件)</li>
 </ol>
 <h2 id="取消忽略文件"><a href="#取消忽略文件" class="headerlink" title="取消忽略文件"></a>取消忽略文件</h2><ol>
-<li>git update-index –no-assume-unchanged file</li>
+<li><code>git update-index --no-assume-unchanged file</code></li>
 </ol>
 <h2 id="拉取、上传免密码"><a href="#拉取、上传免密码" class="headerlink" title="拉取、上传免密码"></a>拉取、上传免密码</h2><ol>
-<li>git config –global credential.helper store</li>
+<li><code>git config --global credential.helper store</code></li>
 </ol>
 
 
