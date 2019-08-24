@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/image/favicon.jpg">
+    
+
+    <title>
+        
+        一张图总结JVM核心运行流程 |
+        
+        keep moving on
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/lhj/css/style.css">
+    <link rel="stylesheet" href="/lhj/css/home.css">
+    <link rel="stylesheet" href="/lhj/css/highlight.css">
+    <link rel="stylesheet" href="/lhj/css/toc.css">
+
+
+</head>
+<body></body>
+</html>
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+     background-image: url('/lhj/image/header.jpg'); 
+	/*
+	 background-image: url('');
+        /*post*/
+    
+	*/
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/lhj/tags/-jvm -java" title="-jvm -java">-jvm -java</a>
+                        
+                    </div>
+                    <h1>一张图总结JVM核心运行流程</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                            Posted by linhuanjie on
+                        2019-08-24
+                        </span>
+                </div>
+                <!-- 非文章 -->
+                
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/lhj/">keep moving on</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <!-- Post container -->
+
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+
+            <p>总的来说，JVM的核心运行流程实际就是类被加载到JVM进程的过程，以及在JVM内存中对类的存储和管理过程。下面用一张图给大家总结以下JVM的核心运行流程。</p>
+<p><img src="/lhj/2019/08/24/一张图总结JVM核心运行流程/640.webp" alt=""></p>
+<h3 id="从类的加载说起"><a href="#从类的加载说起" class="headerlink" title="从类的加载说起"></a>从类的加载说起</h3><p>在谈JVM核心运行之前，我们先说下java的类加载机制。</p>
+<p>我们知道，java的类加载机制采取的是双亲委派机制。</p>
+<blockquote>
+<p>所谓双亲委派机制，也就是说在加载一个类的时候，先一步一步往上传递由最顶层的类加载器加载，加载不到就交给直接下一层类加载器加载，一步一步往下传递，直到某一个类加载器加载到类才结束加载。如果所有的类加载器都不能加载到该类，那么就会抛出类找不到的异常</p>
+</blockquote>
+<p>在java虚拟机规范中，定义了三种类加载器，分别是：</p>
+<ul>
+<li>引导类加载器：BootstrapClassLoader</li>
+</ul>
+<blockquote>
+<p>最顶层的类加载器</p>
+</blockquote>
+<ul>
+<li>扩展类加载器：ExtensionClassLoader</li>
+</ul>
+<blockquote>
+<p>BootstrapClassLoader加载器的字类</p>
+</blockquote>
+<ul>
+<li>应用类加载器：ApplicationClassLoader</li>
+</ul>
+<blockquote>
+<p>扩展类加载器的子类</p>
+</blockquote>
+<p>此外我们还可以自定义自己的类加载器。</p>
+<p><strong>一个类从加载到使用，其生命周期有七个阶段：</strong></p>
+<ul>
+<li>加载阶段</li>
+</ul>
+<blockquote>
+<p>加载.class文件到JVM内存</p>
+</blockquote>
+<ul>
+<li>验证阶段</li>
+</ul>
+<blockquote>
+<p>根据JVM规范验证.class是否合法</p>
+</blockquote>
+<ul>
+<li>准备阶段</li>
+</ul>
+<blockquote>
+<p>主要是给类分配内存空间，这个阶段会计算出类需要占用多大的内存空间</p>
+</blockquote>
+<ul>
+<li>解析阶段</li>
+</ul>
+<blockquote>
+<p>主要是把符号引用改为直接引用</p>
+</blockquote>
+<ul>
+<li>初始化阶段</li>
+</ul>
+<blockquote>
+<p>真正的为类进行初始化，包括静态代码块的执行，类的全局变量的赋值操作</p>
+</blockquote>
+<ul>
+<li>使用阶段</li>
+</ul>
+<blockquote>
+<p>经过类的初始化阶段，类就可以被JVM中的线程使用了</p>
+</blockquote>
+<ul>
+<li>卸载</li>
+</ul>
+<blockquote>
+<p>有些类不再被使用或者由于内存紧张，短期内不会使用到的类就会从JVM内存中移除，等到下一次需要它们的时候再加载进来</p>
+</blockquote>
+<p>上面和大家说说了类的加载各个阶段，这里不深入讨论每一个阶段的细节，大家有个整体的流程印象就可以了。</p>
+<h3 id="JVM的内存模型"><a href="#JVM的内存模型" class="headerlink" title="JVM的内存模型"></a>JVM的内存模型</h3><p>.class文件加载到JVM内存中，需要对类的不同的东西进行分门别类的存储起来，方便管理和使用。在JVM内存中，主要分出四大块内存区域来存储和管理类：</p>
+<ul>
+<li>方法区</li>
+</ul>
+<blockquote>
+<p>存储类的信息和静态常量</p>
+</blockquote>
+<ul>
+<li>堆内存</li>
+</ul>
+<blockquote>
+<p>用来存储类的对象</p>
+</blockquote>
+<ul>
+<li>程序计数器</li>
+</ul>
+<blockquote>
+<p>这是线程独立的一个内存块，用来记录在线程中程序指令执行的位置</p>
+</blockquote>
+<ul>
+<li>虚拟机栈</li>
+</ul>
+<blockquote>
+<p>这也是线程独立的，该内存区域会维护一个方法栈，每调用一次方法都会往方法栈加入一个方法调用记录，方法执行完毕再出栈。该内存区域还会存储方法的局部变量</p>
+</blockquote>
+<p>总的来说，每一个java应用都对应这一个JVM进程。在JVM进程中，需要使用到类的时候，就会把类加载到JVM进程中。经过多个阶段加载进来的类，JVM会分门别类在不同的内存区域存储类的信息，方便后续管理和使用。</p>
+
+
+
+            <!-- Pager -->
+            <ul class="pager">
+                
+                
+                <li class="next">
+                    <a href="/lhj/2019/08/24/Java并发编程/">Next Post &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4><i class="fa fa-bookmark"></i> Catalog</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; keep moving on 2019
+                    <br>
+                    Theme by <a href="http://beantech.org/">Bean Tech</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://1006400320.github.io/lhj">keep moving on</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/lhj/js/script.js"></script>
+
+
+
+
+</body>
+</html>
