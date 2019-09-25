@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/image/favicon.jpg">
+    
+
+    <title>
+        
+        rokcetmq-console启动失败踩坑 |
+        
+        keep moving on
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Plugin CSS -->
+
+
+    <!-- Custom CSS -->
+    <!-- ↓这是stylus文件 -->
+    <link rel="stylesheet" href="/lhj/css/style.css">
+    <link rel="stylesheet" href="/lhj/css/home.css">
+    <link rel="stylesheet" href="/lhj/css/highlight.css">
+    <link rel="stylesheet" href="/lhj/css/toc.css">
+
+
+</head>
+<body></body>
+</html>
+
+<body>
+
+<!-- Header -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header {
+     background-image: url('/lhj/image/header.jpg'); 
+	/*
+	 background-image: url('');
+        /*post*/
+    
+	*/
+    }
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- 文章 -->
+                
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/lhj/tags/mq" title="mq">mq</a>
+                        
+                        <a class="tag" href="/lhj/tags/rockectmq" title="rockectmq">rockectmq</a>
+                        
+                    </div>
+                    <h1>rokcetmq-console启动失败踩坑</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                            Posted by linhuanjie on
+                        2019-09-25
+                        </span>
+                </div>
+                <!-- 非文章 -->
+                
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Nav -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/lhj/">keep moving on</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Content -->
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <!-- Post container -->
+
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+
+            <p>搭建 rocketmq-console 的时候，控制台一直报错。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[2019-09-23 19:42:13.909]  INFO op=look_clusterInfo &#123;&#125;</span><br><span class="line">[2019-09-23 19:42:14.004] ERROR op=global_exception_handler_print_error</span><br><span class="line">org.apache.rocketmq.console.exception.ServiceException: This date have<span class="string">'t data!</span></span><br><span class="line"><span class="string">        at org.apache.rocketmq.console.service.impl.DashboardCollectServiceImpl.getBrokerCache(DashboardCollectServiceImpl.java:140)</span></span><br><span class="line"><span class="string">        at org.apache.rocketmq.console.service.impl.DashboardServiceImpl.queryBrokerData(DashboardServiceImpl.java:41)</span></span><br><span class="line"><span class="string">        at org.apache.rocketmq.console.controller.DashboardController.broker(DashboardController.java:40)</span></span><br><span class="line"><span class="string">        at sun.reflect.GeneratedMethodAccessor99.invoke(Unknown Source)</span></span><br><span class="line"><span class="string">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span></span><br><span class="line"><span class="string">        at java.lang.reflect.Method.invoke(Method.java:498)</span></span><br><span class="line"><span class="string">        at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:220)</span></span><br><span class="line"><span class="string">        at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:134)</span></span><br><span class="line"><span class="string">        at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:116)</span></span><br><span class="line"><span class="string">        at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827)</span></span><br><span class="line"><span class="string">        at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738)</span></span><br><span class="line"><span class="string">        at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)</span></span><br><span class="line"><span class="string">        at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963)</span></span><br><span class="line"><span class="string">        at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:897)</span></span><br><span class="line"><span class="string">        at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)</span></span><br><span class="line"><span class="string">        at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861)</span></span><br><span class="line"><span class="string">        at javax.servlet.http.HttpServlet.service(HttpServlet.java:622)</span></span><br></pre></td></tr></table></figure>
+<p>注意到这一句</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[2019-09-23 19:42:14.004] ERROR op=global_exception_handler_print_error</span><br><span class="line">org.apache.rocketmq.console.exception.ServiceException: This date have<span class="string">'t data!</span></span><br><span class="line"><span class="string">        at org.apache.rocketmq.console.service.impl.DashboardCollectServiceImpl.getBrokerCache(DashboardCollectServiceImpl.java:140)</span></span><br></pre></td></tr></table></figure>
+<p>然后打开 rocketmq-console源码查看。</p>
+<p>DashboardCollectServiceImpl.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="keyword">public</span> Map&lt;String, List&lt;String&gt;&gt; getBrokerCache(String date) &#123;</span><br><span class="line">       String dataLocationPath = rmqConfigure.getConsoleCollectData();</span><br><span class="line">       File file = <span class="keyword">new</span> File(dataLocationPath + date + <span class="string">".json"</span>);</span><br><span class="line">       <span class="keyword">if</span> (!file.exists()) &#123;</span><br><span class="line">           <span class="keyword">throw</span> Throwables.propagate(<span class="keyword">new</span> ServiceException(<span class="number">1</span>, <span class="string">"This date have't data!"</span>));</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> jsonDataFile2map(file);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>错误就是这里抛出的了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String dataLocationPath = rmqConfigure.getConsoleCollectData();</span><br></pre></td></tr></table></figure>
+<p>这里获取配置文件路径</p>
+<p>所以去 <strong>resources/application.properties</strong> 下查找，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rocketmq.config.dataPath=/tmp/rocketmq-console/data</span><br></pre></td></tr></table></figure>
+<p>知道了路径，接着去部署rocketmq的服务器查看</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost data]<span class="comment"># pwd</span></span><br><span class="line">/tmp/rocketmq-console/data</span><br><span class="line"></span><br><span class="line">[root@localhost data]<span class="comment"># ll</span></span><br><span class="line">total 16</span><br><span class="line">-rw-r--r--. 1 root root  1759 Sep 23 19:58 dashboard2019-09-23.json</span><br><span class="line">-rw-r--r--. 1 root root 11864 Sep 23 19:58 dashboard2019-09-23_topic.json</span><br></pre></td></tr></table></figure>
+<p>发现有数据，但是仔细一看，日期对不上。当时的日期是 2019-09-25 </p>
+<p>查看服务器时间：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost data]<span class="comment"># date</span></span><br><span class="line">Mon Sep 23 19:59:41 UTC 2019</span><br><span class="line">[root@localhost data]<span class="comment"># date -R</span></span><br><span class="line">Mon, 23 Sep 2019 20:00:58 +0000</span><br></pre></td></tr></table></figure>
+<p>果然时间错了，时区并不是东八区</p>
+<p>将时区改为东八区，请自行 goolge/百度</p>
+<p>如果还是不对，则将时间改为当前时间，参考：<a href="https://blog.csdn.net/YonJarLuo/article/details/77864321" target="_blank" rel="noopener">https://blog.csdn.net/YonJarLuo/article/details/77864321</a></p>
+<p>重新执行 jar包，</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar rocketmq-console-ng-1.0.1.jar</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost data]<span class="comment"># pwd</span></span><br><span class="line">/tmp/rocketmq-console/data</span><br><span class="line"></span><br><span class="line">[root@localhost data]<span class="comment"># ll</span></span><br><span class="line">total 40</span><br><span class="line">-rw-r--r--. 1 root root  2479 Sep 24 04:26 dashboard2019-09-23.json</span><br><span class="line">-rw-r--r--. 1 root root 19208 Sep 24 04:26 dashboard2019-09-23_topic.json</span><br><span class="line">-rw-r--r--. 1 root root     2 Sep 25 00:00 dashboard2019-09-24.json</span><br><span class="line">-rw-r--r--. 1 root root     2 Sep 25 00:00 dashboard2019-09-24_topic.json</span><br><span class="line">-rw-r--r--. 1 root root   127 Sep 25 16:52 dashboard2019-09-25.json</span><br><span class="line">-rw-r--r--. 1 root root   632 Sep 25 16:52 dashboard2019-09-25_topic.json</span><br></pre></td></tr></table></figure>
+<p>查看后台，没有了报错，一切恢复了正常~</p>
+
+
+
+            <!-- Pager -->
+            <ul class="pager">
+                
+                
+                <li class="next">
+                    <a href="/lhj/2019/08/26/else/">Next Post &rarr;</a>
+                </li>
+                
+            </ul>
+
+
+
+        </div>
+        <!-- Sidebar container-->
+        <div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+            <!-- toc -->
+            <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                <h4><i class="fa fa-bookmark"></i> Catalog</h4>
+                <ul class="nav bs-docs-sidenav">
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; keep moving on 2019
+                    <br>
+                    Theme by <a href="http://beantech.org/">Bean Tech</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://1006400320.github.io/lhj">keep moving on</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/lhj/js/script.js"></script>
+
+
+
+
+</body>
+</html>
