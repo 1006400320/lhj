@@ -15,7 +15,7 @@
 
     <title>
         
-        一张图总结JVM核心运行流程 |
+        test |
         
         keep moving on
     </title>
@@ -65,16 +65,12 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/lhj/tags/java" title="java">java</a>
-                        
-                        <a class="tag" href="/lhj/tags/jvm" title="jvm">jvm</a>
-                        
                     </div>
-                    <h1>一张图总结JVM核心运行流程</h1>
+                    <h1>test</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                             Posted by linhuanjie on
-                        2019-08-24
+                        2020-03-19
                         </span>
                 </div>
                 <!-- 非文章 -->
@@ -132,116 +128,15 @@
                 post-container
             ">
 
-            <p>总的来说，JVM的核心运行流程实际就是类被加载到JVM进程的过程，以及在JVM内存中对类的存储和管理过程。下面用一张图给大家总结以下JVM的核心运行流程。</p>
-<p><img src="/lhj/2019/08/24/一张图总结JVM核心运行流程/640.webp" alt=""></p>
-<h3 id="从类的加载说起"><a href="#从类的加载说起" class="headerlink" title="从类的加载说起"></a>从类的加载说起</h3><p>在谈JVM核心运行之前，我们先说下java的类加载机制。</p>
-<p>我们知道，java的类加载机制采取的是双亲委派机制。</p>
-<blockquote>
-<p>所谓双亲委派机制，也就是说在加载一个类的时候，先一步一步往上传递由最顶层的类加载器加载，加载不到就交给直接下一层类加载器加载，一步一步往下传递，直到某一个类加载器加载到类才结束加载。如果所有的类加载器都不能加载到该类，那么就会抛出类找不到的异常</p>
-</blockquote>
-<p>在java虚拟机规范中，定义了三种类加载器，分别是：</p>
-<ul>
-<li>引导类加载器：BootstrapClassLoader</li>
-</ul>
-<blockquote>
-<p>最顶层的类加载器</p>
-</blockquote>
-<ul>
-<li>扩展类加载器：ExtensionClassLoader</li>
-</ul>
-<blockquote>
-<p>BootstrapClassLoader加载器的字类</p>
-</blockquote>
-<ul>
-<li>应用类加载器：ApplicationClassLoader</li>
-</ul>
-<blockquote>
-<p>扩展类加载器的子类</p>
-</blockquote>
-<p>此外我们还可以自定义自己的类加载器。</p>
-<p><strong>一个类从加载到使用，其生命周期有七个阶段：</strong></p>
-<ul>
-<li>加载阶段</li>
-</ul>
-<blockquote>
-<p>加载.class文件到JVM内存</p>
-</blockquote>
-<ul>
-<li>验证阶段</li>
-</ul>
-<blockquote>
-<p>根据JVM规范验证.class是否合法</p>
-</blockquote>
-<ul>
-<li>准备阶段</li>
-</ul>
-<blockquote>
-<p>主要是给类分配内存空间，这个阶段会计算出类需要占用多大的内存空间</p>
-</blockquote>
-<ul>
-<li>解析阶段</li>
-</ul>
-<blockquote>
-<p>主要是把符号引用改为直接引用</p>
-</blockquote>
-<ul>
-<li>初始化阶段</li>
-</ul>
-<blockquote>
-<p>真正的为类进行初始化，包括静态代码块的执行，类的全局变量的赋值操作</p>
-</blockquote>
-<ul>
-<li>使用阶段</li>
-</ul>
-<blockquote>
-<p>经过类的初始化阶段，类就可以被JVM中的线程使用了</p>
-</blockquote>
-<ul>
-<li>卸载</li>
-</ul>
-<blockquote>
-<p>有些类不再被使用或者由于内存紧张，短期内不会使用到的类就会从JVM内存中移除，等到下一次需要它们的时候再加载进来</p>
-</blockquote>
-<p>上面和大家说说了类的加载各个阶段，这里不深入讨论每一个阶段的细节，大家有个整体的流程印象就可以了。</p>
-<h3 id="JVM的内存模型"><a href="#JVM的内存模型" class="headerlink" title="JVM的内存模型"></a>JVM的内存模型</h3><p>.class文件加载到JVM内存中，需要对类的不同的东西进行分门别类的存储起来，方便管理和使用。在JVM内存中，主要分出四大块内存区域来存储和管理类：</p>
-<ul>
-<li>方法区</li>
-</ul>
-<blockquote>
-<p>存储类的信息和静态常量</p>
-</blockquote>
-<ul>
-<li>堆内存</li>
-</ul>
-<blockquote>
-<p>用来存储类的对象</p>
-</blockquote>
-<ul>
-<li>程序计数器</li>
-</ul>
-<blockquote>
-<p>这是线程独立的一个内存块，用来记录在线程中程序指令执行的位置</p>
-</blockquote>
-<ul>
-<li>虚拟机栈</li>
-</ul>
-<blockquote>
-<p>这也是线程独立的，该内存区域会维护一个方法栈，每调用一次方法都会往方法栈加入一个方法调用记录，方法执行完毕再出栈。该内存区域还会存储方法的局部变量</p>
-</blockquote>
-<p>总的来说，每一个java应用都对应这一个JVM进程。在JVM进程中，需要使用到类的时候，就会把类加载到JVM进程中。经过多个阶段加载进来的类，JVM会分门别类在不同的内存区域存储类的信息，方便后续管理和使用。</p>
-
+            
 
 
             <!-- Pager -->
             <ul class="pager">
                 
-                <li class="previous">
-                    <a href="/lhj/2019/08/26/else/">&larr; Previous Post</a>
-                </li>
-                
                 
                 <li class="next">
-                    <a href="/lhj/2019/08/24/Java并发编程/">Next Post &rarr;</a>
+                    <a href="/lhj/2019/09/25/rokcetmq-console启动失败踩坑/">Next Post &rarr;</a>
                 </li>
                 
             </ul>
